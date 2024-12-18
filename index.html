@@ -3,95 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Py to EXE Converter</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: center;
-        }
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        input[type="file"] {
-            margin: 20px 0;
-            padding: 10px;
-            font-size: 16px;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .status {
-            margin-top: 20px;
-            font-size: 16px;
-        }
-    </style>
+    <title>Python to EXE Converter</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Convert Your Python File to EXE</h1>
-        <form id="uploadForm">
-            <input type="file" id="pyFile" name="pyFile" accept=".py" required>
-            <br>
-            <button type="submit">Convert to EXE</button>
-        </form>
-
-        <div class="status" id="statusMessage"></div>
-    </div>
+    <h1>Upload Python File (.py) to Convert to EXE</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="fileInput" name="pythonFile" accept=".py" required />
+        <button type="submit">Upload & Convert</button>
+    </form>
+    <div id="result"></div>
 
     <script>
-        document.getElementById('uploadForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            const formData = new FormData();
-            const fileInput = document.getElementById('pyFile');
-            formData.append('pyFile', fileInput.files[0]);
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var formData = new FormData();
+            formData.append('pythonFile', document.getElementById('fileInput').files[0]);
 
-            const statusMessage = document.getElementById('statusMessage');
-            statusMessage.innerHTML = "Converting... Please wait.";
-
-            fetch('https://api.github.com/repos/eroge69/PyToExe/issues', {
+            fetch('https://api.github.com/repos/eroge69/PyToExe/dispatches', {
                 method: 'POST',
                 headers: {
-                    'Accept': 'application/vnd.github.v3+json'
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    title: 'Convert file to EXE',
-                    body: 'Conversion of uploaded Python file to EXE.'
+                    event_type: 'convert_to_exe',
+                    client_payload: { file: formData }
                 })
             })
             .then(response => response.json())
             .then(data => {
-                if (data.id) {
-                    statusMessage.innerHTML = "File conversion request successful!";
-                } else {
-                    statusMessage.innerHTML = "Error occurred during the process.";
-                }
+                document.getElementById('result').innerHTML = 'Conversion started. Please wait...';
             })
             .catch(error => {
-                statusMessage.innerHTML = "Failed to contact server. Please try again.";
                 console.error('Error:', error);
+                document.getElementById('result').innerHTML = 'An error occurred. Please try again.';
             });
         });
     </script>
