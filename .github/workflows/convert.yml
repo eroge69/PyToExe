@@ -1,42 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python to EXE Converter</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-        .file-input {
-            margin: 20px;
-        }
-        .button {
-            padding: 10px 20px;
-            margin: 10px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-        #download-link-container {
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <h1>Python to EXE Converter</h1>
-    <p>Upload your .py file, and we will convert it to .exe for you!</p>
-    <input type="file" id="file" class="file-input" accept=".py">
-    <button id="upload-btn" class="button">Convert</button>
-    <p id="status"></p>
-    <div id="download-link-container"></div>
-    <script src="script.js"></script>
-</body>
-</html>
+name: Convert Python to EXE
+
+on:
+  push:
+    paths:
+      - "uploads/*"  # Run workflow when a file is uploaded to the 'uploads' folder
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # 2. Create uploads folder if it does not exist
+    - name: Create uploads folder
+      run: |
+        mkdir -p uploads
+
+    # 3. Setup Python
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    # 4. Install PyInstaller
+    - name: Install PyInstaller
+      run: pip install pyinstaller
+
+    # 5. List files in uploads directory (for debugging)
+    - name: List files in uploads directory
+      run: ls -la uploads/
+
+    # 6. Convert .py to .exe
+    - name: Convert to EXE
+      run: |
+        mkdir -p dist
+        pyinstaller --onefile uploads/*.py --distpath dist
+
+    # 7. Upload EXE as an artifact
+    - name: Upload EXE
+      uses: actions/upload-artifact@v3
+      with:
+        name: converted-exe
+        path: dist/
