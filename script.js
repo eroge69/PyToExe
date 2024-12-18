@@ -1,47 +1,45 @@
-document.getElementById("upload-btn").addEventListener("click", async () => {
-    const fileInput = document.getElementById("file");
-    const status = document.getElementById("status");
+name: Convert Python to EXE
 
-    if (!fileInput.files.length) {
-        status.textContent = "Please select a .py file to upload.";
-        return;
-    }
+on:
+  push:
+    paths:
+      - "uploads/*"  # Jalankan hanya jika ada perubahan di folder uploads
 
-    const file = fileInput.files[0];
-    if (!file.name.endsWith(".py")) {
-        status.textContent = "Only .py files are supported.";
-        return;
-    }
+jobs:
+  convert:
+    runs-on: ubuntu-latest
 
-    status.textContent = "Uploading file...";
+    steps:
+    # 1. Checkout Repositori
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-    // Convert file to base64
-    const reader = new FileReader();
-    reader.readAsText(file);
-    reader.onload = async () => {
-        const content = btoa(reader.result); // Convert file content to base64
+    # 2. Setup Python
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
 
-        try {
-            // Send the file to the backend API (your GitHub Actions workflow)
-            const response = await fetch("/upload-file", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    fileName: file.name,
-                    content: content,
-                }),
-            });
+    # 3. Install PyInstaller
+    - name: Install PyInstaller
+      run: pip install pyinstaller
 
-            if (response.ok) {
-                status.textContent = "File uploaded successfully. Conversion in progress...";
-            } else {
-                const error = await response.json();
-                status.textContent = "Error: " + (error.message || "Failed to upload file.");
-            }
-        } catch (err) {
-            status.textContent = "Error: " + err.message;
-        }
-    };
-});
+    # 4. Convert to EXE
+    - name: Convert to EXE
+      run: |
+        mkdir -p dist
+        pyinstaller --onefile uploads/*.py --distpath dist
+
+    # 5. Upload Artifact (File EXE)
+    - name: Upload EXE
+      uses: actions/upload-artifact@v3
+      with:
+        name: converted-exe
+        path: dist/
+
+    # 6. Send result to GitHub (optional step to upload to GitHub repo)
+    - name: Upload EXE to GitHub
+      run: |
+        curl -X PUT -H "Authorization: token ${{ secrets.PYTOEXETOKEN }}" \
+          -d '{"message": "Upload EXE file","content": "'$(base64 -w 0 dist/your_exe_file.exe)'" }' \
+          https://api.github.com/repos/eroge69/PyToExe/contents/exe_uploads/your_exe_file.exe
