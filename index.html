@@ -4,14 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Convert .py to .exe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="file"], input[type="submit"] {
+            margin: 10px 0;
+        }
+        #status {
+            margin-top: 20px;
+            font-weight: bold;
+            color: green;
+        }
+        #error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <h1>Convert Python (.py) to Executable (.exe)</h1>
-    <form action="https://github.com/eroge69/PyToExe/actions/workflows/convert.yml" method="post" enctype="multipart/form-data">
-        <label for="python_file">Upload your Python file (.py):</label>
-        <input type="file" id="python_file" name="python_file" accept=".py" required>
-        <br><br>
+    <p>Upload your Python file below to convert it to an executable (.exe). The process might take a few minutes.</p>
+
+    <form id="uploadForm">
+        <label for="pythonFile">Select your Python file (.py):</label>
+        <input type="file" id="pythonFile" name="pythonFile" accept=".py" required>
+        <br>
         <input type="submit" value="Convert to EXE">
     </form>
+
+    <div id="status"></div>
+    <div id="error"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const fileInput = document.getElementById('pythonFile');
+            const status = document.getElementById('status');
+            const error = document.getElementById('error');
+
+            // Clear status and error messages
+            status.textContent = '';
+            error.textContent = '';
+
+            if (!fileInput.files.length) {
+                error.textContent = 'Please select a Python file.';
+                return;
+            }
+
+            const file = fileInput.files[0];
+
+            // GitHub API variables
+            const repo = "eroge69/PyToExe";
+            const workflowId = "convert.yml"; // Workflow filename in .github/workflows
+            const token = "YOUR_GITHUB_PERSONAL_ACCESS_TOKEN"; // Replace with your token or fetch it securely
+            const apiUrl = `https://api.github.com/repos/${repo}/actions/workflows/${workflowId}/dispatches`;
+
+            // Create a form data payload for GitHub Actions
+            const payload = {
+                ref: "main", // Branch to trigger the workflow
+                inputs: {
+                    python_file: file.name // Pass the file name as input
+                }
+            };
+
+            // Upload the file (not stored in GitHub; just for client-side demo)
+            status.textContent = 'Uploading file and triggering workflow...';
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    status.textContent = 'Workflow triggered successfully! Please wait for the process to complete.';
+                } else {
+                    const data = await response.json();
+                    error.textContent = `Error: ${data.message}`;
+                }
+            } catch (err) {
+                error.textContent = `Unexpected error: ${err.message}`;
+            }
+        });
+    </script>
 </body>
 </html>
