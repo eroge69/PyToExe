@@ -3,41 +3,60 @@ name: Build Python to EXE
 on:
   push:
     branches:
-      - main
+      - main  # Jalankan pada push ke cabang main
   pull_request:
     branches:
-      - main
-  workflow_dispatch: # Memungkinkan trigger manual dari GitHub UI
+      - main  # Jalankan pada pull request ke cabang main
+  workflow_dispatch:  # Memungkinkan manual trigger dari GitHub UI
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-latest  # Gunakan runner Windows terbaru
 
     steps:
-    # Checkout kode sumber dari repositori
+    # Langkah 1: Checkout kode sumber dari repositori
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Setup Python
+    # Langkah 2: Setup Python
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: 3.10  # Tentukan versi Python yang diinginkan
 
-    # Install dependensi
-    - name: Install PyInstaller
+    # Langkah 3: Cache pip dependencies (menghindari instalasi ulang)
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip  # Lokasi cache pip
+        key: ${{ runner.os }}-python-${{ hashFiles('**/requirements.txt') }}  # Gunakan hash dari requirements.txt sebagai key cache
+        restore-keys: |
+          ${{ runner.os }}-python-
+
+    # Langkah 4: Install dependensi
+    - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pyinstaller
+        pip install pyinstaller  # Install PyInstaller jika belum ada di cache
 
-    # Build file EXE dengan PyInstaller
+    # Langkah 5: Temukan file .py yang terakhir di-upload
+    - name: Find the latest Python script
+      id: find_latest
+      run: |
+        # Temukan file Python (.py) terbaru di repositori
+        latest_file=$(find . -type f -name "*.py" -print0 | xargs -0 ls -t | head -n 1)
+        echo "Latest Python script: $latest_file"
+        echo "::set-output name=script::$latest_file"
+
+    # Langkah 6: Build file EXE dengan PyInstaller
     - name: Build EXE
       run: |
-        pyinstaller --onefile --distpath dist --workpath build --specpath spec my_script.py
+        # Gunakan file Python yang ditemukan dari langkah sebelumnya
+        pyinstaller --onefile --distpath dist --workpath build --specpath spec ${{ steps.find_latest.outputs.script }}
 
-    # Upload file .exe sebagai artifact
+    # Langkah 7: Upload file .exe sebagai artifact
     - name: Upload EXE as artifact
       uses: actions/upload-artifact@v3
       with:
         name: exe-file
-        path: dist/my_script.exe
+        path: dist/*.exe  # Ganti dengan nama file EXE yang sesuai
