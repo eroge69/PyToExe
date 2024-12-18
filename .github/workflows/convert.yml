@@ -1,38 +1,37 @@
-name: Convert Python to EXE
+name: Convert .py to .exe
 
 on:
-  push:
-    paths:
-      - "uploads/*"  # Trigger hanya jika ada perubahan di folder uploads
+  workflow_dispatch:
+    inputs:
+      python_file:
+        description: 'Path to Python file'
+        required: true
+        type: string
 
 jobs:
-  convert:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Checkout Repositori
-    - name: Checkout code
-      uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-    # 2. Setup Python
-    - name: Setup Python
-      uses: actions/setup-python@v4
+    - name: Set up Python
+      uses: actions/setup-python@v2
       with:
-        python-version: '3.10'
+        python-version: '3.x'
 
-    # 3. Install PyInstaller
-    - name: Install PyInstaller
-      run: pip install pyinstaller
-
-    # 4. Convert to EXE
-    - name: Convert to EXE
+    - name: Install dependencies
       run: |
-        mkdir -p dist
-        pyinstaller --onefile uploads/*.py --distpath dist
+        pip install pyinstaller
 
-    # 5. Upload Artifact (File EXE)
-    - name: Upload EXE
-      uses: actions/upload-artifact@v3
+    - name: Convert Python file to EXE
+      run: |
+        pyinstaller --onefile ${{ github.event.inputs.python_file }}
+        mv dist/*.exe ./output/
+
+    - name: Upload EXE as artifact
+      uses: actions/upload-artifact@v2
       with:
         name: converted-exe
-        path: dist/
+        path: ./output/*.exe
