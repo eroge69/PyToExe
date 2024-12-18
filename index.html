@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Convert .py to .exe</title>
+    <title>Convert Python to EXE</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -76,11 +76,11 @@
                 const content = event.target.result.split(",")[1]; // Remove metadata prefix
 
                 try {
-                    // Create the file in the repository
+                    // Create the file in the repository using GitHub API
                     const response = await fetch(apiUrl, {
                         method: 'PUT',
                         headers: {
-                            'Authorization': `Bearer {{secrets.PYTOEXETOKEN}}`, // This will be resolved in the workflow
+                            'Authorization': `Bearer {{secrets.PYTOEXETOKEN}}`,
                             'Accept': 'application/vnd.github.v3+json'
                         },
                         body: JSON.stringify({
