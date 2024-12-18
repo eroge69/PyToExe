@@ -7,68 +7,54 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: windows-latest
-    
+
     steps:
-    # Checkout repository
+    # Langkah 1: Checkout kode
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Set up Python
+    # Langkah 2: Setup Python
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.9'
+        python-version: 3.10
 
-    # Cache PyInstaller Build
-    - name: Cache PyInstaller Build
+    # Langkah 3: Cache pip dependencies
+    - name: Cache pip dependencies
       uses: actions/cache@v3
       with:
-        path: |
-          dist
-          build
-          .pytest_cache
-          __pycache__
-        key: ${{ runner.os }}-pyinstaller-${{ hashFiles('**/*.py') }}
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-python-${{ hashFiles('**/requirements.txt') }}
         restore-keys: |
-          ${{ runner.os }}-pyinstaller-
+          ${{ runner.os }}-python-
 
-    # Install dependencies
-# Install dependencies (directly)
-- name: Install dependencies
-  run: |
-    python -m pip install --upgrade pip
-    pip install pyinstaller
+    # Langkah 4: Install dependencies
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller
 
+    # Langkah 5: Temukan file Python terbaru menggunakan PowerShell
+    - name: Find the latest Python script
+      id: find_latest
+      run: |
+        $latest_file = Get-ChildItem -Recurse -Filter "*.py" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+        echo "Latest Python script: $($latest_file.FullName)"
+        echo "::set-output name=script::$($latest_file.FullName)"
 
-    # Build EXE using PyInstaller
+    # Langkah 6: Build EXE dengan PyInstaller tanpa menghapus folder sementara
     - name: Build EXE
       run: |
-        pyinstaller --onefile --distpath dist --workpath build --specpath spec --no-cache-dir D:\a\PyToExe\PyToExe\ReBind.py
+        pyinstaller --onefile --distpath dist --workpath build --specpath spec ${{ steps.find_latest.outputs.script }}
 
-    # Check if the EXE file is created
-    - name: Verify EXE creation
-      run: |
-        if exist "dist\ReBind.exe" (
-          echo EXE created successfully!
-        ) else (
-          echo EXE creation failed!
-          exit 1
-        )
-
-    # Upload the EXE file as an artifact
-    - name: Upload EXE artifact
+    # Langkah 7: Upload file EXE sebagai artifact ke root
+    - name: Upload EXE as artifact
       uses: actions/upload-artifact@v3
       with:
         name: exe-file
         path: dist/*.exe
-        if-no-files-found: warn
-        include-hidden-files: false
-
-
-    # Final step to show status
-    - name: Final Status
-      run: echo "Build and upload completed successfully."
