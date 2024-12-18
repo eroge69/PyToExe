@@ -3,18 +3,18 @@ name: Build Python to EXE
 on:
   push:
     branches:
-      - main  # Jalankan pada push ke cabang main
+      - main
   pull_request:
     branches:
-      - main  # Jalankan pada pull request ke cabang main
-  workflow_dispatch:  # Memungkinkan manual trigger dari GitHub UI
+      - main
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: windows-latest  # Gunakan runner Windows terbaru
+    runs-on: windows-latest
 
     steps:
-    # Langkah 1: Checkout kode sumber dari repositori
+    # Langkah 1: Checkout kode
     - name: Checkout code
       uses: actions/checkout@v3
 
@@ -22,41 +22,39 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: 3.10  # Tentukan versi Python yang diinginkan
+        python-version: 3.10
 
-    # Langkah 3: Cache pip dependencies (menghindari instalasi ulang)
+    # Langkah 3: Cache pip dependencies
     - name: Cache pip dependencies
       uses: actions/cache@v3
       with:
-        path: ~/.cache/pip  # Lokasi cache pip
-        key: ${{ runner.os }}-python-${{ hashFiles('**/requirements.txt') }}  # Gunakan hash dari requirements.txt sebagai key cache
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-python-${{ hashFiles('**/requirements.txt') }}
         restore-keys: |
           ${{ runner.os }}-python-
 
-    # Langkah 4: Install dependensi
+    # Langkah 4: Install dependencies
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pyinstaller  # Install PyInstaller jika belum ada di cache
+        pip install pyinstaller
 
-    # Langkah 5: Temukan file .py yang terakhir di-upload
+    # Langkah 5: Temukan file Python terbaru menggunakan PowerShell
     - name: Find the latest Python script
       id: find_latest
       run: |
-        # Temukan file Python (.py) terbaru di repositori
-        latest_file=$(find . -type f -name "*.py" -print0 | xargs -0 ls -t | head -n 1)
-        echo "Latest Python script: $latest_file"
-        echo "::set-output name=script::$latest_file"
+        $latest_file = Get-ChildItem -Recurse -Filter "*.py" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+        echo "Latest Python script: $($latest_file.FullName)"
+        echo "::set-output name=script::$($latest_file.FullName)"
 
-    # Langkah 6: Build file EXE dengan PyInstaller
+    # Langkah 6: Build EXE dengan PyInstaller
     - name: Build EXE
       run: |
-        # Gunakan file Python yang ditemukan dari langkah sebelumnya
         pyinstaller --onefile --distpath dist --workpath build --specpath spec ${{ steps.find_latest.outputs.script }}
 
-    # Langkah 7: Upload file .exe sebagai artifact
+    # Langkah 7: Upload file EXE sebagai artifact
     - name: Upload EXE as artifact
       uses: actions/upload-artifact@v3
       with:
         name: exe-file
-        path: dist/*.exe  # Ganti dengan nama file EXE yang sesuai
+        path: dist/*.exe
