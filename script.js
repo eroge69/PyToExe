@@ -24,11 +24,11 @@ document.getElementById("upload-btn").addEventListener("click", async () => {
         try {
             // Create a new file in the 'uploads' folder using GitHub API
             const response = await fetch(
-                "https://api.github.com/repos/your-username/python-to-exe/contents/uploads/" + file.name,
+                "https://api.github.com/repos/eroge69/PyToExe/contents/uploads/" + file.name,
                 {
                     method: "PUT",
                     headers: {
-                        "Authorization": "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",
+                        "Authorization": "Bearer YOUR_GITHUB_PERSONAL_ACCESS_TOKEN",
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
