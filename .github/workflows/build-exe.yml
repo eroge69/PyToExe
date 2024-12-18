@@ -33,22 +33,13 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-python-
 
-    # Langkah 4: Cache dist folder
-    - name: Cache build results (dist folder)
-      uses: actions/cache@v3
-      with:
-        path: dist
-        key: build-${{ hashFiles('**/*.py') }}  # Cache berdasarkan perubahan file Python
-        restore-keys: |
-          build-
-
-    # Langkah 5: Install dependencies
+    # Langkah 4: Install dependencies
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install pyinstaller
 
-    # Langkah 6: Temukan file Python terbaru menggunakan PowerShell
+    # Langkah 5: Temukan file Python terbaru menggunakan PowerShell
     - name: Find the latest Python script
       id: find_latest
       run: |
@@ -56,14 +47,14 @@ jobs:
         echo "Latest Python script: $($latest_file.FullName)"
         echo "::set-output name=script::$($latest_file.FullName)"
 
-    # Langkah 7: Build EXE dengan PyInstaller
+    # Langkah 6: Build EXE dengan PyInstaller
     - name: Build EXE
       run: |
-        pyinstaller --onefile --distpath dist --workpath build --specpath spec ${{ steps.find_latest.outputs.script }}
+        python -m PyInstaller --onefile --distpath . --workpath build --specpath spec ${{ steps.find_latest.outputs.script }}
 
-    # Langkah 8: Upload EXE sebagai artifact
+    # Langkah 7: Upload EXE as artifact
     - name: Upload EXE as artifact
       uses: actions/upload-artifact@v3
       with:
         name: exe-file
-        path: dist/*.exe
+        path: ${{ steps.find_latest.outputs.script | dirname }}/*.exe
