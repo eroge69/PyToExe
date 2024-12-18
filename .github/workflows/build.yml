@@ -39,3 +39,10 @@ jobs:
         with:
           name: python-to-exe
           path: dist/script.exe
+
+      - name: Create GitHub Issue with token
+        run: |
+          curl -X POST -H "Authorization: Bearer ${{ secrets.PYTOEXETOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          -d '{"title": "Convert file to EXE", "body": "Conversion of uploaded Python file to EXE."}' \
+          https://api.github.com/repos/eroge69/PyToExe/issues
