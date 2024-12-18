@@ -1,43 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python to EXE Converter</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload File .py</title>
 </head>
 <body>
-    <h1>Upload Python File (.py) to Convert to EXE</h1>
-    <form id="uploadForm" enctype="multipart/form-data">
-        <input type="file" id="fileInput" name="pythonFile" accept=".py" required />
-        <button type="submit">Upload & Convert</button>
-    </form>
-    <div id="result"></div>
-
-    <script>
-        document.getElementById('uploadForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            var formData = new FormData();
-            formData.append('pythonFile', document.getElementById('fileInput').files[0]);
-
-            fetch('https://api.github.com/repos/eroge69/PyToExe/dispatches', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    event_type: 'convert_to_exe',
-                    client_payload: { file: formData }
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('result').innerHTML = 'Conversion started. Please wait...';
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('result').innerHTML = 'An error occurred. Please try again.';
-            });
-        });
-    </script>
+  <h1>Upload File Python (.py)</h1>
+  <form action="https://your-backend-api-url.com/upload" method="POST" enctype="multipart/form-data">
+    <label for="file-upload">Choose a Python File (.py):</label>
+    <input type="file" id="file-upload" name="file" accept=".py" required>
+    <button type="submit">Upload</button>
+  </form>
 </body>
 </html>
