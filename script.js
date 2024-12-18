@@ -28,7 +28,7 @@ document.getElementById("upload-btn").addEventListener("click", async () => {
                 {
                     method: "PUT",
                     headers: {
-                        "Authorization": "Bearer YOUR_GITHUB_PERSONAL_ACCESS_TOKEN",
+                        "Authorization": "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",
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
