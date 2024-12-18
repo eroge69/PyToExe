@@ -1,11 +1,9 @@
 name: Convert Python to EXE
 
 on:
-  workflow_dispatch:
-    inputs:
-      python_file:
-        description: "Python file name in the uploads folder"
-        required: true
+  push:
+    paths:
+      - "uploads/*"  # Jalankan hanya jika ada perubahan di folder uploads
 
 jobs:
   convert:
@@ -30,7 +28,7 @@ jobs:
     - name: Convert to EXE
       run: |
         mkdir -p dist
-        pyinstaller --onefile uploads/${{ github.event.inputs.python_file }} --distpath dist
+        pyinstaller --onefile uploads/*.py --distpath dist
 
     # 5. Upload Artifact (File EXE)
     - name: Upload EXE
