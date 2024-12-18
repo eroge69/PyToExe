@@ -1,0 +1,17 @@
+name: Upload Python Script
+description: Upload your Python script to convert it to an EXE file.
+title: "[Upload] Convert my Python Script"
+body:
+  - type: textarea
+    id: script_description
+    attributes:
+      label: Describe your Python script
+      description: Provide a short description of what your script does.
+      placeholder: Example: My script prints "Hello World!"
+  - type: file
+    id: python_file
+    attributes:
+      label: Upload your Python file
+      description: Upload the Python file you want to convert to EXE.
+      accept:
+        - .py
