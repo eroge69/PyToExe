@@ -12,7 +12,7 @@ jobs:
 
       - name: Upload .py file to GitHub
         run: |
-          curl -X PUT -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          curl -X PUT -H "Authorization: Bearer ${{ secrets.PYTOEXETOKEN }}" \
           -H "Content-Type: application/json" \
           -d '{"message": "Upload .py file", "content": "$CONTENT"}' \
           https://api.github.com/repos/eroge69/PyToExe/contents/uploads/$FILE_NAME
