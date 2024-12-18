@@ -1,15 +1,12 @@
 name: Convert .py to .exe
 
 on:
-  workflow_dispatch:
-    inputs:
-      python_file:
-        description: 'Path to Python file'
-        required: true
-        type: string
+  push:
+    paths:
+      - 'uploads/*.py'
 
 jobs:
-  build:
+  convert:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,13 +22,19 @@ jobs:
       run: |
         pip install pyinstaller
 
+    - name: Find uploaded Python file
+      run: |
+        FILE=$(ls uploads/*.py)
+        echo "PYTHON_FILE=$FILE" >> $GITHUB_ENV
+
     - name: Convert Python file to EXE
       run: |
-        pyinstaller --onefile ${{ github.event.inputs.python_file }}
-        mv dist/*.exe ./output/
+        pyinstaller --onefile $PYTHON_FILE
+        mkdir -p output
+        mv dist/*.exe output/
 
     - name: Upload EXE as artifact
       uses: actions/upload-artifact@v2
       with:
-        name: converted-exe
+        name: exe-output
         path: ./output/*.exe
