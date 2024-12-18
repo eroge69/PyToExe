@@ -1,0 +1,33 @@
+name: Convert Python to EXE
+
+on:
+  workflow_dispatch:
+    inputs:
+      python_file:
+        description: "Python file to convert"
+        required: true
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install PyInstaller
+        run: pip install pyinstaller
+
+      - name: Convert to EXE
+        run: |
+          pyinstaller --onefile ${{ github.event.inputs.python_file }}
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v3
+        with:
+          name: converted-exe
+          path: dist/
