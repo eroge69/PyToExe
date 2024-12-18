@@ -50,11 +50,16 @@ jobs:
     # Langkah 6: Build EXE dengan PyInstaller
     - name: Build EXE
       run: |
-        python -m PyInstaller --onefile --distpath . --workpath build --specpath spec ${{ steps.find_latest.outputs.script }}
+        pyinstaller --onefile --distpath . --workpath build --specpath spec ${{ steps.find_latest.outputs.script }}
 
     # Langkah 7: Upload EXE as artifact
     - name: Upload EXE as artifact
+      run: |
+        exe_path=$(dirname "${{ steps.find_latest.outputs.script }}")
+        echo "EXE Path: $exe_path"
+      shell: bash
+    - name: Upload EXE to artifact
       uses: actions/upload-artifact@v3
       with:
         name: exe-file
-        path: ${{ steps.find_latest.outputs.script | dirname }}/*.exe
+        path: ./*.exe
