@@ -37,14 +37,12 @@ jobs:
           ${{ runner.os }}-pyinstaller-
 
     # Install dependencies
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+# Install dependencies (directly)
+- name: Install dependencies
+  run: |
+    python -m pip install --upgrade pip
+    pip install pyinstaller
 
-    # Install PyInstaller
-    - name: Install PyInstaller
-      run: pip install pyinstaller
 
     # Build EXE using PyInstaller
     - name: Build EXE
