@@ -67,41 +67,41 @@
 
             // GitHub API variables
             const repo = "eroge69/PyToExe";
-            const workflowId = "convert.yml"; // Workflow filename in .github/workflows
-            const token = "YOUR_GITHUB_PERSONAL_ACCESS_TOKEN"; // Replace with your token or fetch it securely
-            const apiUrl = `https://api.github.com/repos/${repo}/actions/workflows/${workflowId}/dispatches`;
+            const apiUrl = `https://api.github.com/repos/${repo}/contents/uploads/${file.name}`;
+            const branch = "main";
 
-            // Create a form data payload for GitHub Actions
-            const payload = {
-                ref: "main", // Branch to trigger the workflow
-                inputs: {
-                    python_file: file.name // Pass the file name as input
+            // Read the file as Base64
+            const reader = new FileReader();
+            reader.onload = async function(event) {
+                const content = event.target.result.split(",")[1]; // Remove metadata prefix
+
+                try {
+                    // Create the file in the repository
+                    const response = await fetch(apiUrl, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `Bearer {{GITHUB_TOKEN}}`, // This will be resolved in the workflow
+                            'Accept': 'application/vnd.github.v3+json'
+                        },
+                        body: JSON.stringify({
+                            message: `Upload ${file.name}`,
+                            content: content,
+                            branch: branch
+                        })
+                    });
+
+                    if (response.ok) {
+                        status.textContent = 'File uploaded successfully. The workflow has been triggered!';
+                    } else {
+                        const data = await response.json();
+                        error.textContent = `Error: ${data.message}`;
+                    }
+                } catch (err) {
+                    error.textContent = `Unexpected error: ${err.message}`;
                 }
             };
 
-            // Upload the file (not stored in GitHub; just for client-side demo)
-            status.textContent = 'Uploading file and triggering workflow...';
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Accept': 'application/vnd.github.v3+json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                if (response.ok) {
-                    status.textContent = 'Workflow triggered successfully! Please wait for the process to complete.';
-                } else {
-                    const data = await response.json();
-                    error.textContent = `Error: ${data.message}`;
-                }
-            } catch (err) {
-                error.textContent = `Unexpected error: ${err.message}`;
-            }
+            reader.readAsDataURL(file);
         });
     </script>
 </body>
