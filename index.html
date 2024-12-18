@@ -3,105 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Convert Python to EXE</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            max-width: 600px;
-        }
-        h1 {
-            color: #333;
-        }
-        form {
-            margin-top: 20px;
-        }
-        label {
-            font-weight: bold;
-        }
-        input[type="file"], input[type="submit"] {
-            margin: 10px 0;
-        }
-        #status {
-            margin-top: 20px;
-            font-weight: bold;
-            color: green;
-        }
-        #error {
-            color: red;
-        }
-    </style>
+    <title>Py to Exe Converter</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Convert Python (.py) to Executable (.exe)</h1>
-    <p>Upload your Python file below to convert it to an executable (.exe). The process might take a few minutes.</p>
-
-    <form id="uploadForm">
-        <label for="pythonFile">Select your Python file (.py):</label>
-        <input type="file" id="pythonFile" name="pythonFile" accept=".py" required>
-        <br>
-        <input type="submit" value="Convert to EXE">
+    <h1>Python to EXE Converter</h1>
+    <form id="upload-form">
+        <label for="file">Upload your Python (.py) script:</label>
+        <input type="file" id="file" name="file" accept=".py" required>
+        <button type="submit">Convert</button>
     </form>
-
-    <div id="status"></div>
-    <div id="error"></div>
+    <div id="output"></div>
 
     <script>
-        document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+        const form = document.getElementById('upload-form');
+        const output = document.getElementById('output');
+
+        form.addEventListener('submit', async (event) => {
             event.preventDefault();
+            output.innerHTML = "Uploading and processing your file...";
 
-            const fileInput = document.getElementById('pythonFile');
-            const status = document.getElementById('status');
-            const error = document.getElementById('error');
+            const fileInput = document.getElementById('file');
+            const file = fileInput.files[0];
 
-            // Clear status and error messages
-            status.textContent = '';
-            error.textContent = '';
-
-            if (!fileInput.files.length) {
-                error.textContent = 'Please select a Python file.';
+            if (!file) {
+                output.innerHTML = "Please select a Python (.py) file.";
                 return;
             }
 
-            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append('file', file);
 
-            // GitHub API variables
-            const repo = "eroge69/PyToExe";
-            const apiUrl = `https://api.github.com/repos/${repo}/contents/uploads/${file.name}`;
-            const branch = "main";
+            try {
+                const response = await fetch('https://api.github.com/repos/eroge69/PyToExe/issues', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer YOUR_GITHUB_TOKEN`, // Ganti dengan token Anda
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        title: `Convert ${file.name} to EXE`,
+                        body: `This issue was automatically created for the file: ${file.name}`,
+                    }),
+                });
 
-            // Read the file as Base64
-            const reader = new FileReader();
-            reader.onload = async function(event) {
-                const content = event.target.result.split(",")[1]; // Remove metadata prefix
-
-                try {
-                    // Create the file in the repository using GitHub API
-                    const response = await fetch(apiUrl, {
-                        method: 'PUT',
-                        headers: {
-                            'Authorization': `Bearer {{secrets.PYTOEXETOKEN}}`,
-                            'Accept': 'application/vnd.github.v3+json'
-                        },
-                        body: JSON.stringify({
-                            message: `Upload ${file.name}`,
-                            content: content,
-                            branch: branch
-                        })
-                    });
-
-                    if (response.ok) {
-                        status.textContent = 'File uploaded successfully. The workflow has been triggered!';
-                    } else {
-                        const data = await response.json();
-                        error.textContent = `Error: ${data.message}`;
-                    }
-                } catch (err) {
-                    error.textContent = `Unexpected error: ${err.message}`;
+                if (response.ok) {
+                    const data = await response.json();
+                    output.innerHTML = `
+                        <p>Conversion request submitted successfully!</p>
+                        <p>Track progress: <a href="${data.html_url}" target="_blank">${data.html_url}</a></p>
+                    `;
+                } else {
+                    throw new Error("Failed to create GitHub Issue.");
                 }
-            };
-
-            reader.readAsDataURL(file);
+            } catch (error) {
+                output.innerHTML = `<p>Error: ${error.message}</p>`;
+            }
         });
     </script>
 </body>
