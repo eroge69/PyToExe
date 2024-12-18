@@ -80,7 +80,7 @@
                     const response = await fetch(apiUrl, {
                         method: 'PUT',
                         headers: {
-                            'Authorization': `Bearer {{GITHUB_TOKEN}}`, // This will be resolved in the workflow
+                            'Authorization': `Bearer {{secrets.PYTOEXETOKEN}}`, // This will be resolved in the workflow
                             'Accept': 'application/vnd.github.v3+json'
                         },
                         body: JSON.stringify({
