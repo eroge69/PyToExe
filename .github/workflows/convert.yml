@@ -1,38 +1,42 @@
-name: Convert Python to EXE
-
-on:
-  push:
-    paths:
-      - "uploads/*"  # Jalankan hanya jika ada perubahan di folder uploads
-
-jobs:
-  convert:
-    runs-on: ubuntu-latest
-
-    steps:
-    # 1. Checkout Repositori
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    # 2. Setup Python
-    - name: Setup Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
-
-    # 3. Install PyInstaller
-    - name: Install PyInstaller
-      run: pip install pyinstaller
-
-    # 4. Convert to EXE
-    - name: Convert to EXE
-      run: |
-        mkdir -p dist
-        pyinstaller --onefile uploads/*.py --distpath dist
-
-    # 5. Upload Artifact (File EXE)
-    - name: Upload EXE
-      uses: actions/upload-artifact@v3
-      with:
-        name: converted-exe
-        path: dist/
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python to EXE Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .file-input {
+            margin: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        #download-link-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Python to EXE Converter</h1>
+    <p>Upload your .py file, and we will convert it to .exe for you!</p>
+    <input type="file" id="file" class="file-input" accept=".py">
+    <button id="upload-btn" class="button">Convert</button>
+    <p id="status"></p>
+    <div id="download-link-container"></div>
+    <script src="script.js"></script>
+</body>
+</html>
