@@ -38,3 +38,6 @@ jobs:
       with:
         name: exe-output
         path: ./output/*.exe
+        
+        env:
+  GITHUB_TOKEN: ${{ secrets.PYTOEXETOKEN }}
