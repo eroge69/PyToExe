@@ -3,43 +3,34 @@ name: Convert Python to EXE
 on:
   push:
     paths:
-      - "uploads/*"  # Run workflow when a file is uploaded to the 'uploads' folder
+      - "uploads/*"  # Trigger hanya jika ada perubahan di folder uploads
 
 jobs:
   convert:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Checkout the repository
+    # 1. Checkout Repositori
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # 2. Create uploads folder if it does not exist
-    - name: Create uploads folder
-      run: |
-        mkdir -p uploads
-
-    # 3. Setup Python
+    # 2. Setup Python
     - name: Setup Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
 
-    # 4. Install PyInstaller
+    # 3. Install PyInstaller
     - name: Install PyInstaller
       run: pip install pyinstaller
 
-    # 5. List files in uploads directory (for debugging)
-    - name: List files in uploads directory
-      run: ls -la uploads/
-
-    # 6. Convert .py to .exe
+    # 4. Convert to EXE
     - name: Convert to EXE
       run: |
         mkdir -p dist
         pyinstaller --onefile uploads/*.py --distpath dist
 
-    # 7. Upload EXE as an artifact
+    # 5. Upload Artifact (File EXE)
     - name: Upload EXE
       uses: actions/upload-artifact@v3
       with:
