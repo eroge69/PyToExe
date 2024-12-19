@@ -53,7 +53,14 @@ jobs:
         name: exe-file
         path: |
           **/*.exe
-
+          
+    # Langkah 6.5: Hapus file .py yang telah digunakan
+    - name: Delete the Python script
+      run: |
+        $script_path="${{ steps.find_latest.outputs.script }}"
+        Remove-Item -Path $script_path -Force
+        echo "Deleted Python script: $script_path"
+        
     # Langkah 7: Post message with download link
     - name: Post download link
       run: |
