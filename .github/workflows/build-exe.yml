@@ -1,9 +1,12 @@
 name: Build Python to EXE
 
 on:
-  push:
-    branches:
-      - app
+  workflow_dispatch:
+    inputs:
+      branchRef:
+        description: 'Branch to deploy'
+        required: true
+        default: 'main'
 
 jobs:
   build:
