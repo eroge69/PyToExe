@@ -21,15 +21,6 @@ jobs:
 
     steps:
 
-    #Lankah 0
-     - name: Check if Python files were changed
-        run: |
-          # Get the list of changed files and check if any .py files were changed
-          echo "Checking for Python file changes"
-          changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
-          echo "Changed files: $changed_files"
-          echo "::set-output name=python_changed::$(echo $changed_files | grep -E '\.py$' || echo '')"
-
     # Langkah 1: Checkout kode
     - name: Checkout code
       uses: actions/checkout@v3
