@@ -1,0 +1,55 @@
+name: Auto Delete Python Files After 1 Hour with Reset
+
+on:
+  push:
+    paths:
+      - '**/*.py'  # Trigger ketika ada file .py di-upload
+
+jobs:
+  delete-py-files:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Check last upload time
+      run: |
+        # Periksa apakah file last-upload.txt ada
+        if [ -f last-upload.txt ]; then
+          LAST_UPLOAD_TIME=$(cat last-upload.txt)
+          CURRENT_TIME=$(date +%s)
+          DIFF_TIME=$((CURRENT_TIME - LAST_UPLOAD_TIME))
+          
+          # Jika lebih dari 1 jam, lanjutkan untuk menghapus file Python
+          if [ $DIFF_TIME -ge 3600 ]; then
+            echo "1 hour has passed since the last upload. Proceeding to delete files."
+          else
+            echo "Less than 1 hour since last upload. Exiting."
+            exit 0  # Jika kurang dari 1 jam, hentikan workflow
+          fi
+        else
+          echo "No last upload time found, assuming this is the first upload."
+        fi
+
+    - name: Reset last upload time
+      run: |
+        # Setel waktu sekarang sebagai waktu terakhir diupload
+        date +%s > last-upload.txt
+        git add last-upload.txt
+        git commit -m "Reset last upload time"
+        git push
+
+    - name: Delete all Python files after 1 hour
+      run: |
+        # Temukan semua file Python yang ada di repositori
+        FILES=$(find . -name "*.py")
+        if [ -n "$FILES" ]; then
+          echo "Deleting all Python files..."
+          rm -f $FILES
+          git add .
+          git commit -m "Deleted all Python files after 1 hour"
+          git push
+        else
+          echo "No Python files found."
+        fi
