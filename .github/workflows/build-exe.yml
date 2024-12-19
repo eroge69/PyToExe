@@ -9,7 +9,7 @@ on:
       - main
   workflow_dispatch:
     inputs:
-      branchRef: 'main'
+      branchRef:
         description: 'Branch to deploy'
         required: true
         default: 'main'
