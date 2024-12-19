@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+      with:
+        ref: app  # Pastikan workflow checkout ke branch 'app'
 
     - name: Set up Git user for commit
       run: |
@@ -43,7 +45,7 @@ jobs:
         date +%s > last-upload.txt
         git add last-upload.txt
         git commit -m "Reset last upload time"
-        git push
+        git push https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git app  # Push ke branch 'app'
 
     - name: Delete all Python files after 1 hour
       run: |
@@ -54,7 +56,7 @@ jobs:
           rm -f $FILES
           git add .
           git commit -m "Deleted all Python files after 1 hour"
-          git push
+          git push https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git app  # Push ke branch 'app'
         else
           echo "No Python files found."
         fi
