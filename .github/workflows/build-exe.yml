@@ -7,9 +7,9 @@ on:
   pull_request:
     branches:
       - main
-  workflow_dispatch:  # This enables manual triggers of the workflow
+  workflow_dispatch:
     inputs:
-      branchRef:
+      branchRef: 'main'
         description: 'Branch to deploy'
         required: true
         default: 'main'
