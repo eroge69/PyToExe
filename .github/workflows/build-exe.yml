@@ -1,18 +1,19 @@
 name: Build Python to EXE
 
-on:
-  push:
+push:
     branches:
-      - delete
+      - app
+    paths:
+      - '**/*.py'
   pull_request:
     branches:
-      - delete
+      - app
   workflow_dispatch:
     inputs:
       branchRef:
         description: 'Branch to deploy'
         required: true
-        default: 'delete'
+        default: 'app'
 
 
 jobs:
