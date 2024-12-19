@@ -3,16 +3,16 @@ name: Build Python to EXE
 on:
   push:
     branches:
-      - main
+      - app
   pull_request:
     branches:
-      - main
+      - app
   workflow_dispatch:
     inputs:
       branchRef:
         description: 'Branch to deploy'
         required: true
-        default: 'main'
+        default: 'app'
 
 
 jobs:
