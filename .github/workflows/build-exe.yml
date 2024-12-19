@@ -4,7 +4,7 @@ push:
     branches:
       - app
     paths:
-      - '*.py'
+      - '**/*.py'
   pull_request:
     branches:
       - app
