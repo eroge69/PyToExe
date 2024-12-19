@@ -4,9 +4,7 @@ on:
   push:
     branches:
       - app
-    paths:
-      - '**/*.py' # Hanya aktif jika file .py diubah
-  workflow_dispatch: # Tetap mendukung pemicu manual
+  workflow_dispatch:
     inputs:
       branchRef:
         description: 'Branch to deploy'
@@ -28,33 +26,43 @@ jobs:
       with:
         python-version: 3.10
 
-    # Langkah 3: Temukan file .py yang diubah
-    - name: Find modified Python files
+    # Langkah 3: Temukan file .py yang diubah atau dihapus
+    - name: Find modified or deleted Python files
       id: find_files
       run: |
-        echo "Checking for modified Python files..."
-        CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.py$' || echo "")
-        if [ -z "$CHANGED_FILES" ]; then
-          echo "No Python files changed. Exiting..."
+        Write-Host "Checking for modified or deleted Python files..."
+        $CHANGED_FILES = git diff --name-status ${{ github.event.before }} ${{ github.sha }} | Select-String -Pattern '\.py$' -SimpleMatch
+        $MODIFIED_FILES = $CHANGED_FILES | Where-Object { $_.Line.StartsWith('M') } | ForEach-Object { $_.Line.Split("`t")[1] }
+        $DELETED_FILES = $CHANGED_FILES | Where-Object { $_.Line.StartsWith('D') } | ForEach-Object { $_.Line.Split("`t")[1] }
+        
+        if (-not $MODIFIED_FILES -and -not $DELETED_FILES) {
+          Write-Host "No Python files modified or deleted. Exiting..."
           exit 0
-        fi
-        echo "Modified Python files:"
-        echo "$CHANGED_FILES"
-        echo "::set-output name=files::$CHANGED_FILES"
+        }
+        
+        Write-Host "Modified Python files: $MODIFIED_FILES"
+        Write-Host "Deleted Python files: $DELETED_FILES"
+        
+        echo "::set-output name=modified::$MODIFIED_FILES"
+        echo "::set-output name=deleted::$DELETED_FILES"
+      shell: pwsh
 
-    # Langkah 4: Build EXE untuk setiap file .py yang diubah
-    - name: Build EXE with PyInstaller
+    # Langkah 4: Build EXE untuk file .py yang diubah
+    - name: Build EXE for modified Python files
+      if: ${{ steps.find_files.outputs.modified != '' }}
       run: |
-        IFS=$'\n'
-        for file in ${{ steps.find_files.outputs.files }}; do
-          echo "Building EXE for $file..."
-          pyinstaller --onefile --distpath dist --workpath build --specpath spec "$file"
-        done
-      shell: bash
+        $modifiedFiles = "${{ steps.find_files.outputs.modified }}"
+        foreach ($file in $modifiedFiles.Split(","))
+        {
+          Write-Host "Building EXE for $file..."
+          pyinstaller --onefile --distpath dist --workpath build --specpath spec $file
+        }
+      shell: pwsh
 
-    # Langkah 5: Upload EXE as artifact
-    - name: Upload EXE as artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: exe-files
-        path: dist/*.exe
+    # Langkah 5: Log penghapusan file
+    - name: Log deleted files
+      if: ${{ steps.find_files.outputs.deleted != '' }}
+      run: |
+        Write-Host "The following Python files were deleted:"
+        Write-Host "${{ steps.find_files.outputs.deleted }}"
+      shell: pwsh
