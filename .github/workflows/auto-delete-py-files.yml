@@ -13,6 +13,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Set up Git user for commit
+      run: |
+        git config --global user.name "eroge69"
+        git config --global user.email "dhymonstdi@gmail.com"
+
     - name: Check last upload time
       run: |
         # Periksa apakah file last-upload.txt ada
