@@ -1,6 +1,7 @@
 name: Build Python to EXE
 
-push:
+on:
+  push:
     branches:
       - app
   pull_request:
@@ -29,7 +30,7 @@ jobs:
           changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
           echo "Changed files: $changed_files"
           echo "::set-output name=python_changed::$(echo $changed_files | grep -E '\.py$' || echo '')"
-          
+
     # Langkah 1: Checkout kode
     - name: Checkout code
       uses: actions/checkout@v3
