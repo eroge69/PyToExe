@@ -23,7 +23,6 @@ jobs:
 
     #Lankah 0
      - name: Check if Python files were changed
-        id: check_python_files
         run: |
           # Get the list of changed files and check if any .py files were changed
           echo "Checking for Python file changes"
