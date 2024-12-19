@@ -4,16 +4,6 @@ on:
   push:
     branches:
       - app
-  pull_request:
-    branches:
-      - app
-  workflow_dispatch:
-    inputs:
-      branchRef:
-        description: 'Branch to deploy'
-        required: true
-        default: 'app'
-
 
 jobs:
   build:
