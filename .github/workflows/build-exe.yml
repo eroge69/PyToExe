@@ -2,9 +2,7 @@ name: Build Python to EXE
 
 push:
     branches:
-      - app
-    paths:
-      - '**/*.py'
+      - app    
   pull_request:
     branches:
       - app
