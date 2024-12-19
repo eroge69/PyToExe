@@ -3,13 +3,17 @@ name: Build Python to EXE
 on:
   push:
     branches:
-      - app
+      - delete
+  pull_request:
+    branches:
+      - delete
   workflow_dispatch:
     inputs:
       branchRef:
         description: 'Branch to deploy'
         required: true
-        default: 'app'
+        default: 'delete'
+
 
 jobs:
   build:
@@ -26,43 +30,38 @@ jobs:
       with:
         python-version: 3.10
 
-    # Langkah 3: Temukan file .py yang diubah atau dihapus
-    - name: Find modified or deleted Python files
-      id: find_files
+    # Langkah 3: Install dependencies
+    - name: Install dependencies
       run: |
-        Write-Host "Checking for modified or deleted Python files..."
-        $CHANGED_FILES = git diff --name-status ${{ github.event.before }} ${{ github.sha }} | Select-String -Pattern '\.py$' -SimpleMatch
-        $MODIFIED_FILES = $CHANGED_FILES | Where-Object { $_.Line.StartsWith('M') } | ForEach-Object { $_.Line.Split("`t")[1] }
-        $DELETED_FILES = $CHANGED_FILES | Where-Object { $_.Line.StartsWith('D') } | ForEach-Object { $_.Line.Split("`t")[1] }
-        
-        if (-not $MODIFIED_FILES -and -not $DELETED_FILES) {
-          Write-Host "No Python files modified or deleted. Exiting..."
-          exit 0
-        }
-        
-        Write-Host "Modified Python files: $MODIFIED_FILES"
-        Write-Host "Deleted Python files: $DELETED_FILES"
-        
-        echo "::set-output name=modified::$MODIFIED_FILES"
-        echo "::set-output name=deleted::$DELETED_FILES"
-      shell: pwsh
+        python -m pip install --upgrade pip
+        pip install pyinstaller
 
-    # Langkah 4: Build EXE untuk file .py yang diubah
-    - name: Build EXE for modified Python files
-      if: ${{ steps.find_files.outputs.modified != '' }}
+    # Langkah 4: Temukan file Python terbaru menggunakan PowerShell
+    - name: Find the latest Python script
+      id: find_latest
       run: |
-        $modifiedFiles = "${{ steps.find_files.outputs.modified }}"
-        foreach ($file in $modifiedFiles.Split(","))
-        {
-          Write-Host "Building EXE for $file..."
-          pyinstaller --onefile --distpath dist --workpath build --specpath spec $file
-        }
-      shell: pwsh
+        $latest_file = Get-ChildItem -Recurse -Filter "*.py" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+        echo "Latest Python script: $($latest_file.FullName)"
+        echo "::set-output name=script::$($latest_file.FullName)"
 
-    # Langkah 5: Log penghapusan file
-    - name: Log deleted files
-      if: ${{ steps.find_files.outputs.deleted != '' }}
+    # Langkah 5: Build EXE dengan PyInstaller
+    - name: Build EXE
       run: |
-        Write-Host "The following Python files were deleted:"
-        Write-Host "${{ steps.find_files.outputs.deleted }}"
-      shell: pwsh
+        $script_path="${{ steps.find_latest.outputs.script }}"
+        $output_dir=(Split-Path -Path $script_path)
+        pyinstaller --onefile --distpath $output_dir --workpath build --specpath spec $script_path
+      shell: powershell
+
+    # Langkah 6: Upload EXE as artifact
+    - name: Upload EXE as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: exe-file
+        path: |
+          **/*.exe
+
+    # Langkah 7: Post message with download link
+    - name: Post download link
+      run: |
+        echo "Your file has been uploaded as an artifact."
+        echo "You can download it from: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
