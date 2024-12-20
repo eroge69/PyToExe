@@ -1,0 +1,29 @@
+name: Delete All Workflow Runs
+
+on:
+  workflow_dispatch: # Memungkinkan Anda menjalankan workflow secara manual.
+
+jobs:
+  delete_workflows:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Install GitHub CLI
+      run: |
+        sudo apt update
+        sudo apt install -y gh
+
+    - name: Authenticate GitHub CLI
+      run: |
+        echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+    - name: List and Delete All Workflow Runs
+      run: |
+        # List all workflow runs and delete them
+        gh run list --json databaseId --limit 1000 | jq -r '.[].databaseId' | while read run_id; do
+          echo "Deleting workflow run with ID: $run_id"
+          gh api -X DELETE "/repos/${{ github.repository }}/actions/runs/$run_id"
+        done
