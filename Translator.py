@@ -5,9 +5,14 @@ import pyperclip
 ALBHED = "ypltavkrezgmshubxncdijfqow"
 ENGLISH = "abcdefghijklmnopqrstuvwxyz"
 
+# Extended cipher for uppercase letters
+ALBHED_UPPER = ALBHED.upper()
+ENGLISH_UPPER = ENGLISH.upper()
+
 def translate(text, to_al_bhed):
-    source, target = (ENGLISH, ALBHED) if to_al_bhed else (ALBHED, ENGLISH)
-    translation_table = str.maketrans(source, target)
+    source_lower, target_lower = (ENGLISH, ALBHED) if to_al_bhed else (ALBHED, ENGLISH)
+    source_upper, target_upper = (ENGLISH_UPPER, ALBHED_UPPER) if to_al_bhed else (ALBHED_UPPER, ENGLISH_UPPER)
+    translation_table = str.maketrans(source_lower + source_upper, target_lower + target_upper)
     return text.translate(translation_table)
 
 def main(stdscr):
@@ -46,7 +51,7 @@ def main(stdscr):
         elif key == 10:  # ENTER key
             translation = translate(input_text, to_al_bhed)
             pyperclip.copy(translation)
-        elif key == 127 or key == curses.KEY_BACKSPACE:  # Backspace
+        elif key in (8, 127, curses.KEY_BACKSPACE):  # Handle Backspace
             input_text = input_text[:-1]
         elif key == 22:  # CTRL + V
             input_text = pyperclip.paste()
