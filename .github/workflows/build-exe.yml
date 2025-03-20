@@ -16,7 +16,7 @@ jobs:
 
     # Langkah 1: Checkout kode
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     # Langkah 2: Setup Python
     - name: Set up Python
@@ -48,7 +48,7 @@ jobs:
 
     # Langkah 6: Upload EXE as artifact
     - name: Upload EXE as artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: exe-file
         path: |
