@@ -29,29 +29,37 @@ jobs:
         echo "pyinstaller" > requirements.txt
       shell: powershell
 
-    # Langkah 3: Setup Python
+    # Langkah 3: Setup Python - explicitly specify 3.10.x
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: 3.10
-        cache: 'pip'
-        cache-dependency-path: 'requirements.txt'
+        python-version: '3.10'
 
-    # Langkah 4: Cache pip dependencies
-    - name: Cache pip dependencies
-      id: cache-pip
+    # Langkah 4: Verify Python version
+    - name: Verify Python version
+      run: |
+        python --version
+        pip --version
+      shell: powershell
+
+    # Langkah 5: Cache pip packages
+    - name: Cache pip packages
       uses: actions/cache@v3
       with:
-        path: |
-          ~\AppData\Local\pip\Cache
-          venv
+        path: ~\AppData\Local\pip\Cache
         key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
 
-    # Langkah 5: Cache PyInstaller build files
+    # Langkah 6: Install dependencies directly (no venv)
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+      shell: powershell
+
+    # Langkah 7: Cache PyInstaller build files
     - name: Cache PyInstaller build files
-      id: cache-pyinstaller
       uses: actions/cache@v3
       with:
         path: |
@@ -61,18 +69,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pyinstaller-
 
-    # Langkah 6: Setup virtual environment and install dependencies
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        if (-not (Test-Path "venv")) {
-          python -m venv venv
-        }
-        .\venv\Scripts\Activate.ps1
-        pip install -r requirements.txt
-      shell: powershell
-
-    # Langkah 7: Temukan file Python terbaru menggunakan PowerShell
+    # Langkah 8: Temukan file Python terbaru menggunakan PowerShell
     - name: Find the latest Python script
       id: find_latest
       run: |
@@ -81,16 +78,15 @@ jobs:
         echo "script=$($latest_file.FullName)" >> $env:GITHUB_OUTPUT
       shell: powershell
 
-    # Langkah 8: Build EXE dengan PyInstaller
+    # Langkah 9: Build EXE dengan PyInstaller
     - name: Build EXE
       run: |
-        .\venv\Scripts\Activate.ps1
         $script_path="${{ steps.find_latest.outputs.script }}"
         $output_dir=(Split-Path -Path $script_path)
-        .\venv\Scripts\pyinstaller --onefile --distpath $output_dir --workpath build --specpath spec $script_path
+        pyinstaller --onefile --distpath $output_dir --workpath build --specpath spec $script_path
       shell: powershell
 
-    # Langkah 9: Upload EXE as artifact
+    # Langkah 10: Upload EXE as artifact
     - name: Upload EXE as artifact
       uses: actions/upload-artifact@v4
       with:
@@ -98,7 +94,7 @@ jobs:
         path: |
           **/*.exe
 
-    # Langkah 10: Post message with download link
+    # Langkah 11: Post message with download link
     - name: Post download link
       run: |
         echo "Your file has been uploaded as an artifact."
