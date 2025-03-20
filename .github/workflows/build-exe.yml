@@ -23,15 +23,21 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    # Langkah 2: Setup Python
+    # Langkah 2: Create requirements.txt first
+    - name: Create requirements.txt
+      run: |
+        echo "pyinstaller" > requirements.txt
+      shell: powershell
+
+    # Langkah 3: Setup Python
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: 3.10
         cache: 'pip'
-        cache-dependency-path: '**/requirements.txt'
+        cache-dependency-path: 'requirements.txt'
 
-    # Langkah 3: Restore cached dependencies
+    # Langkah 4: Cache pip dependencies
     - name: Cache pip dependencies
       id: cache-pip
       uses: actions/cache@v3
@@ -39,11 +45,11 @@ jobs:
         path: |
           ~\AppData\Local\pip\Cache
           venv
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
 
-    # Langkah 4: Cache PyInstaller build files
+    # Langkah 5: Cache PyInstaller build files
     - name: Cache PyInstaller build files
       id: cache-pyinstaller
       uses: actions/cache@v3
@@ -54,14 +60,6 @@ jobs:
         key: ${{ runner.os }}-pyinstaller-${{ hashFiles('**/*.py') }}
         restore-keys: |
           ${{ runner.os }}-pyinstaller-
-
-    # Langkah 5: Create requirements.txt if it doesn't exist
-    - name: Create requirements.txt if needed
-      run: |
-        if (-not (Test-Path "requirements.txt")) {
-          echo "pyinstaller" > requirements.txt
-        }
-      shell: powershell
 
     # Langkah 6: Setup virtual environment and install dependencies
     - name: Install dependencies
