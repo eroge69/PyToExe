@@ -69,24 +69,67 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pyinstaller-
 
-    # Langkah 8: Temukan file Python terbaru menggunakan PowerShell
+    # Langkah 8: List all Python files for debugging
+    - name: List all Python files
+      run: |
+        echo "Listing all Python files in the repository:"
+        Get-ChildItem -Recurse -Filter "*.py" | ForEach-Object { echo $_.FullName }
+      shell: powershell
+
+    # Langkah 9: Temukan file Python terbaru menggunakan PowerShell
     - name: Find the latest Python script
       id: find_latest
       run: |
-        $latest_file = Get-ChildItem -Recurse -Filter "*.py" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
-        echo "Latest Python script: $($latest_file.FullName)"
-        echo "script=$($latest_file.FullName)" >> $env:GITHUB_OUTPUT
+        $python_files = Get-ChildItem -Recurse -Filter "*.py" | Sort-Object LastWriteTime -Descending
+        
+        if ($python_files.Count -eq 0) {
+          echo "No Python files found in the repository!"
+          echo "Creating a sample Python file for testing..."
+          echo "print('Hello, World!')" > sample.py
+          $script_path = "sample.py"
+        } else {
+          $latest_file = $python_files | Select-Object -First 1
+          $script_path = $latest_file.FullName
+          echo "Latest Python script: $script_path"
+        }
+        
+        echo "script=$script_path" >> $env:GITHUB_OUTPUT
       shell: powershell
 
-    # Langkah 9: Build EXE dengan PyInstaller
+    # Langkah 10: Verify script path
+    - name: Verify script path
+      run: |
+        echo "Script path from previous step: ${{ steps.find_latest.outputs.script }}"
+        if (-not "${{ steps.find_latest.outputs.script }}") {
+          echo "Script path is empty! This will cause the next step to fail."
+        } else {
+          echo "Script path is valid."
+        }
+      shell: powershell
+
+    # Langkah 11: Build EXE dengan PyInstaller
     - name: Build EXE
       run: |
         $script_path="${{ steps.find_latest.outputs.script }}"
-        $output_dir=(Split-Path -Path $script_path)
+        
+        if (-not $script_path) {
+          echo "Error: Script path is empty!"
+          exit 1
+        }
+        
+        echo "Building EXE for script: $script_path"
+        $output_dir = Split-Path -Path $script_path
+        
+        if (-not $output_dir) {
+          echo "Using current directory as output directory"
+          $output_dir = "."
+        }
+        
+        echo "Output directory: $output_dir"
         pyinstaller --onefile --distpath $output_dir --workpath build --specpath spec $script_path
       shell: powershell
 
-    # Langkah 10: Upload EXE as artifact
+    # Langkah 12: Upload EXE as artifact
     - name: Upload EXE as artifact
       uses: actions/upload-artifact@v4
       with:
@@ -94,7 +137,7 @@ jobs:
         path: |
           **/*.exe
 
-    # Langkah 11: Post message with download link
+    # Langkah 13: Post message with download link
     - name: Post download link
       run: |
         echo "Your file has been uploaded as an artifact."
