@@ -27,6 +27,7 @@ jobs:
     - name: Create requirements.txt
       run: |
         echo "pyinstaller" > requirements.txt
+        echo "chardet" >> requirements.txt
       shell: powershell
 
     # Langkah 3: Setup Python - explicitly specify 3.10.x
@@ -69,17 +70,19 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pyinstaller-
 
-    # Langkah 8: List all Python files for debugging
-    - name: List all Python files
+    # Langkah 8: Set PowerShell to use UTF-8
+    - name: Configure PowerShell encoding
       run: |
-        echo "Listing all Python files in the repository:"
-        Get-ChildItem -Recurse -Filter "*.py" | ForEach-Object { echo $_.FullName }
+        [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+        $PSDefaultParameterValues['Out-File:Encoding'] = 'utf8'
+        $PSDefaultParameterValues['*:Encoding'] = 'utf8'
       shell: powershell
 
     # Langkah 9: Temukan file Python terbaru menggunakan PowerShell
     - name: Find the latest Python script
       id: find_latest
       run: |
+        # Get all Python files and sort by last write time
         $python_files = Get-ChildItem -Recurse -Filter "*.py" | Sort-Object LastWriteTime -Descending
         
         if ($python_files.Count -eq 0) {
@@ -93,24 +96,110 @@ jobs:
           echo "Latest Python script: $script_path"
         }
         
-        echo "script=$script_path" >> $env:GITHUB_OUTPUT
+        # Save the path to a file to avoid encoding issues when passing between steps
+        $script_path | Out-File -FilePath "script_path.txt" -Encoding utf8
+        echo "script_file=script_path.txt" >> $env:GITHUB_OUTPUT
       shell: powershell
 
-    # Langkah 10: Verify script path
-    - name: Verify script path
+    # Langkah 10: Check and fix file encoding
+    - name: Check and fix file encoding
       run: |
-        echo "Script path from previous step: ${{ steps.find_latest.outputs.script }}"
-        if (-not "${{ steps.find_latest.outputs.script }}") {
-          echo "Script path is empty! This will cause the next step to fail."
-        } else {
-          echo "Script path is valid."
-        }
+        # Read the script path from the file
+        $script_path = Get-Content -Path "${{ steps.find_latest.outputs.script_file }}" -Encoding utf8
+        
+        echo "Checking encoding of Python script: $script_path"
+        
+        # Create a Python script to detect and fix encoding
+        $encoding_script = @"
+        import sys
+        import os
+        import chardet
+        
+        def fix_encoding(file_path):
+            # Detect the encoding
+            with open(file_path, 'rb') as file:
+                raw_data = file.read()
+                result = chardet.detect(raw_data)
+                encoding = result['encoding']
+                confidence = result['confidence']
+            
+            print(f"Detected encoding: {encoding} with confidence: {confidence}")
+            
+            # If it's not UTF-8, convert it
+            if encoding.lower() != 'utf-8' and encoding.lower() != 'ascii':
+                print(f"Converting from {encoding} to UTF-8")
+                content = raw_data.decode(encoding)
+                
+                # Check if the file already has an encoding declaration
+                lines = content.split('\n')
+                has_encoding = False
+                for i, line in enumerate(lines[:2]):
+                    if 'coding' in line and ('utf-8' in line.lower() or 'utf8' in line.lower()):
+                        has_encoding = True
+                        break
+                
+                # Add encoding declaration if it doesn't have one
+                if not has_encoding:
+                    if lines[0].startswith('#!'):
+                        lines.insert(1, '# -*- coding: utf-8 -*-')
+                    else:
+                        lines.insert(0, '# -*- coding: utf-8 -*-')
+                    content = '\n'.join(lines)
+                
+                # Write back with UTF-8 encoding
+                with open(file_path, 'w', encoding='utf-8') as file:
+                    file.write(content)
+                print(f"File converted to UTF-8 and encoding declaration added if needed")
+            else:
+                print(f"File is already in {encoding} encoding")
+                
+                # Check if the file has an encoding declaration
+                with open(file_path, 'r', encoding=encoding) as file:
+                    content = file.read()
+                
+                lines = content.split('\n')
+                has_encoding = False
+                for i, line in enumerate(lines[:2]):
+                    if 'coding' in line and ('utf-8' in line.lower() or 'utf8' in line.lower()):
+                        has_encoding = True
+                        break
+                
+                # Add encoding declaration if it doesn't have one
+                if not has_encoding:
+                    if lines[0].startswith('#!'):
+                        lines.insert(1, '# -*- coding: utf-8 -*-')
+                    else:
+                        lines.insert(0, '# -*- coding: utf-8 -*-')
+                    content = '\n'.join(lines)
+                    
+                    # Write back with UTF-8 encoding
+                    with open(file_path, 'w', encoding='utf-8') as file:
+                        file.write(content)
+                    print(f"Added UTF-8 encoding declaration")
+        
+        if __name__ == '__main__':
+            if len(sys.argv) > 1:
+                file_path = sys.argv[1]
+                if os.path.exists(file_path):
+                    fix_encoding(file_path)
+                else:
+                    print(f"File not found: {file_path}")
+            else:
+                print("No file path provided")
+        "@
+        
+        # Save the encoding script
+        $encoding_script | Out-File -FilePath "fix_encoding.py" -Encoding utf8
+        
+        # Run the encoding script on the Python file
+        python fix_encoding.py "$script_path"
       shell: powershell
 
     # Langkah 11: Build EXE dengan PyInstaller
     - name: Build EXE
       run: |
-        $script_path="${{ steps.find_latest.outputs.script }}"
+        # Read the script path from the file
+        $script_path = Get-Content -Path "${{ steps.find_latest.outputs.script_file }}" -Encoding utf8
         
         if (-not $script_path) {
           echo "Error: Script path is empty!"
@@ -118,6 +207,8 @@ jobs:
         }
         
         echo "Building EXE for script: $script_path"
+        
+        # Get the directory of the script
         $output_dir = Split-Path -Path $script_path
         
         if (-not $output_dir) {
@@ -126,7 +217,66 @@ jobs:
         }
         
         echo "Output directory: $output_dir"
-        pyinstaller --onefile --distpath $output_dir --workpath build --specpath spec $script_path
+        
+        # Create a custom PyInstaller spec file to handle encoding issues
+        $spec_content = @"
+        # -*- coding: utf-8 -*-
+        import sys
+        from PyInstaller.building.api import PYZ, EXE, COLLECT
+        from PyInstaller.building.build_main import Analysis
+        
+        # Set the correct encoding for sys.stdout and sys.stderr
+        if sys.stdout.encoding != 'utf-8':
+            sys.stdout.reconfigure(encoding='utf-8')
+        if sys.stderr.encoding != 'utf-8':
+            sys.stderr.reconfigure(encoding='utf-8')
+        
+        a = Analysis(
+            ['$($script_path -replace '\\', '\\\\')'],
+            pathex=[],
+            binaries=[],
+            datas=[],
+            hiddenimports=[],
+            hookspath=[],
+            hooksconfig={},
+            runtime_hooks=[],
+            excludes=[],
+            win_no_prefer_redirects=False,
+            win_private_assemblies=False,
+            cipher=None,
+            noarchive=False,
+        )
+        
+        pyz = PYZ(a.pure, a.zipped_data, cipher=None)
+        
+        exe = EXE(
+            pyz,
+            a.scripts,
+            a.binaries,
+            a.zipfiles,
+            a.datas,
+            [],
+            name='$(Split-Path -Leaf $script_path -replace '\.py$', '')',
+            debug=False,
+            bootloader_ignore_signals=False,
+            strip=False,
+            upx=True,
+            upx_exclude=[],
+            runtime_tmpdir=None,
+            console=True,
+            disable_windowed_traceback=False,
+            argv_emulation=False,
+            target_arch=None,
+            codesign_identity=None,
+            entitlements_file=None,
+        )
+        "@
+        
+        # Save the spec file
+        $spec_content | Out-File -FilePath "custom_build.spec" -Encoding utf8
+        
+        # Build using the custom spec file
+        pyinstaller --clean --log-level DEBUG custom_build.spec
       shell: powershell
 
     # Langkah 12: Upload EXE as artifact
