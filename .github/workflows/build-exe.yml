@@ -14,6 +14,10 @@ on:
         required: true
         default: 'main'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: windows-latest
@@ -388,32 +392,6 @@ jobs:
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
-      shell: powershell
-
-    # Langkah 14: Commit and push the deletion
-    - name: Commit and push deletion
-      run: |
-        # Read the relative path from the file
-        $relative_path = Get-Content -Path "${{ steps.build_exe.outputs.relative_path }}" -Encoding utf8
-        
-        if (-not $relative_path) {
-          echo "Error: Relative path is empty, cannot commit deletion."
-          exit 0  # Don't fail the workflow if we can't commit
-        }
-        
-        echo "Committing deletion of: $relative_path"
-        
-        # Check if the file exists in Git
-        $file_exists = git ls-files --error-unmatch $relative_path 2>$null
-        if ($LASTEXITCODE -eq 0) {
-          # File exists in Git, remove it
-          git rm -f "$relative_path"
-          git commit -m "Remove Python source file after building EXE: $relative_path"
-          git push
-          echo "Successfully committed and pushed deletion of $relative_path"
-        } else {
-          echo "File $relative_path is not tracked by Git, no need to commit deletion."
-        }
       shell: powershell
 
     # Langkah 15: Upload EXE as artifact
