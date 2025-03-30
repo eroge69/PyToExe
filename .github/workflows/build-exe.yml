@@ -218,6 +218,12 @@ jobs:
         
         echo "Output directory: $output_dir"
         
+        # Extract the file name without extension for the EXE name
+        $file_name = Split-Path -Leaf $script_path
+        $exe_name = $file_name -replace '\.py$', ''
+        
+        echo "EXE name will be: $exe_name"
+        
         # Create a custom PyInstaller spec file to handle encoding issues
         $spec_content = @"
         # -*- coding: utf-8 -*-
@@ -256,7 +262,7 @@ jobs:
             a.zipfiles,
             a.datas,
             [],
-            name='$(Split-Path -Leaf $script_path -replace '\.py$', '')',
+            name='$exe_name',
             debug=False,
             bootloader_ignore_signals=False,
             strip=False,
