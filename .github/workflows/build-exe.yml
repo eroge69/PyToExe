@@ -259,7 +259,7 @@ jobs:
             sys.stderr.reconfigure(encoding='utf-8')
         
         a = Analysis(
-            ['$($script_path -replace '\\', '\\\\')'],
+            ['$($script_path -replace('\\', '\\\\'))'],
             pathex=[],
             binaries=[],
             datas=[],
@@ -310,7 +310,7 @@ jobs:
         echo "script_to_delete=script_to_delete.txt" >> $env:GITHUB_OUTPUT
       shell: powershell
 
-    # Langkah 12: Delete the Python file after build (whether it succeeded or failed)
+    # Langkah 12: Delete the Python file after build (improved for non-ASCII characters)
     - name: Delete Python file
       if: always()  # This ensures the step runs even if previous steps failed
       run: |
@@ -324,27 +324,74 @@ jobs:
         
         echo "Attempting to delete Python file: $script_path"
         
-        # Check if the file exists
-        if (Test-Path $script_path) {
-          # Try to delete the file
-          try {
-            Remove-Item -Path $script_path -Force
-            echo "Successfully deleted Python file: $script_path"
-          } catch {
-            echo "Warning: Failed to delete Python file: $_"
-          }
-        } else {
-          echo "Python file not found, may have already been deleted: $script_path"
-        }
+        # Create a Python script to handle file deletion (better with non-ASCII paths)
+        $delete_script = @"
+        import os
+        import sys
+        import shutil
         
-        # Also delete any backup files created during encoding fix
-        $backup_path = "$script_path.bak"
-        if (Test-Path $backup_path) {
+        def delete_file(file_path):
+            try:
+                if os.path.exists(file_path):
+                    os.remove(file_path)
+                    print(f"Successfully deleted: {file_path}")
+                else:
+                    print(f"File not found: {file_path}")
+                
+                # Check for backup file
+                backup_path = file_path + '.bak'
+                if os.path.exists(backup_path):
+                    os.remove(backup_path)
+                    print(f"Successfully deleted backup: {backup_path}")
+            except Exception as e:
+                print(f"Error deleting file: {e}")
+                
+                # Try alternative method if first one fails
+                try:
+                    if os.path.exists(file_path):
+                        # Sometimes direct deletion fails with special characters
+                        # Try to rename first to a simple name
+                        temp_path = os.path.join(os.path.dirname(file_path), "temp_to_delete.py")
+                        shutil.move(file_path, temp_path)
+                        os.remove(temp_path)
+                        print(f"Successfully deleted via rename method: {file_path}")
+                except Exception as e2:
+                    print(f"Alternative deletion also failed: {e2}")
+        
+        if __name__ == "__main__":
+            if len(sys.argv) > 1:
+                file_path = sys.argv[1]
+                delete_file(file_path)
+            else:
+                print("No file path provided")
+        "@
+        
+        # Save the deletion script
+        $delete_script | Out-File -FilePath "delete_file.py" -Encoding utf8
+        
+        # Run the deletion script
+        python delete_file.py "$script_path"
+        
+        # Also try PowerShell deletion as a backup method
+        if (Test-Path $script_path) {
+          echo "Python deletion failed, trying PowerShell deletion..."
           try {
-            Remove-Item -Path $backup_path -Force
-            echo "Successfully deleted backup file: $backup_path"
+            # Try to use .NET methods for deletion which might handle special characters better
+            [System.IO.File]::Delete($script_path)
+            echo "Successfully deleted file using .NET method: $script_path"
           } catch {
-            echo "Warning: Failed to delete backup file: $_"
+            echo "Warning: .NET deletion failed: $_"
+            
+            # Last resort - try cmd.exe with short path names
+            try {
+              $short_path = cmd /c "for %I in (`"$script_path`") do @echo %~sI"
+              if ($short_path) {
+                cmd /c "del `"$short_path`""
+                echo "Attempted deletion using short path name: $short_path"
+              }
+            } catch {
+              echo "Warning: All deletion methods failed: $_"
+            }
           }
         }
       shell: powershell
