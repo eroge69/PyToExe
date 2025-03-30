@@ -17,11 +17,15 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    permissions:
+      contents: write  # This is needed to push changes to the repository
 
     steps:
     # Langkah 1: Checkout kode
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}  # This is needed for pushing changes
 
     # Langkah 2: Create requirements.txt first
     - name: Create requirements.txt
@@ -259,7 +263,7 @@ jobs:
             sys.stderr.reconfigure(encoding='utf-8')
         
         a = Analysis(
-            ['$($script_path -replace('\\', '\\\\'))'],
+            ['$($script_path -replace '\\', '\\\\')'],
             pathex=[],
             binaries=[],
             datas=[],
@@ -308,10 +312,16 @@ jobs:
         # Save the script path to a file for the cleanup step
         $script_path | Out-File -FilePath "script_to_delete.txt" -Encoding utf8
         echo "script_to_delete=script_to_delete.txt" >> $env:GITHUB_OUTPUT
+        
+        # Save the relative path for Git operations
+        $repo_root = (Get-Location).Path
+        $relative_path = $script_path.Replace("$repo_root\", "").Replace("\", "/")
+        $relative_path | Out-File -FilePath "relative_path.txt" -Encoding utf8
+        echo "relative_path=relative_path.txt" >> $env:GITHUB_OUTPUT
       shell: powershell
 
-    # Langkah 12: Delete the Python file after build (improved for non-ASCII characters)
-    - name: Delete Python file
+    # Langkah 12: Delete the Python file locally
+    - name: Delete Python file locally
       if: always()  # This ensures the step runs even if previous steps failed
       run: |
         # Read the script path from the file
@@ -322,7 +332,7 @@ jobs:
           exit 0  # Don't fail the workflow if we can't delete
         }
         
-        echo "Attempting to delete Python file: $script_path"
+        echo "Attempting to delete Python file locally: $script_path"
         
         # Create a Python script to handle file deletion (better with non-ASCII paths)
         $delete_script = @"
@@ -334,7 +344,7 @@ jobs:
             try:
                 if os.path.exists(file_path):
                     os.remove(file_path)
-                    print(f"Successfully deleted: {file_path}")
+                    print(f"Successfully deleted locally: {file_path}")
                 else:
                     print(f"File not found: {file_path}")
                 
@@ -371,32 +381,42 @@ jobs:
         
         # Run the deletion script
         python delete_file.py "$script_path"
+      shell: powershell
+
+    # Langkah 13: Configure Git
+    - name: Configure Git
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+      shell: powershell
+
+    # Langkah 14: Commit and push the deletion
+    - name: Commit and push deletion
+      run: |
+        # Read the relative path from the file
+        $relative_path = Get-Content -Path "${{ steps.build_exe.outputs.relative_path }}" -Encoding utf8
         
-        # Also try PowerShell deletion as a backup method
-        if (Test-Path $script_path) {
-          echo "Python deletion failed, trying PowerShell deletion..."
-          try {
-            # Try to use .NET methods for deletion which might handle special characters better
-            [System.IO.File]::Delete($script_path)
-            echo "Successfully deleted file using .NET method: $script_path"
-          } catch {
-            echo "Warning: .NET deletion failed: $_"
-            
-            # Last resort - try cmd.exe with short path names
-            try {
-              $short_path = cmd /c "for %I in (`"$script_path`") do @echo %~sI"
-              if ($short_path) {
-                cmd /c "del `"$short_path`""
-                echo "Attempted deletion using short path name: $short_path"
-              }
-            } catch {
-              echo "Warning: All deletion methods failed: $_"
-            }
-          }
+        if (-not $relative_path) {
+          echo "Error: Relative path is empty, cannot commit deletion."
+          exit 0  # Don't fail the workflow if we can't commit
+        }
+        
+        echo "Committing deletion of: $relative_path"
+        
+        # Check if the file exists in Git
+        $file_exists = git ls-files --error-unmatch $relative_path 2>$null
+        if ($LASTEXITCODE -eq 0) {
+          # File exists in Git, remove it
+          git rm -f "$relative_path"
+          git commit -m "Remove Python source file after building EXE: $relative_path"
+          git push
+          echo "Successfully committed and pushed deletion of $relative_path"
+        } else {
+          echo "File $relative_path is not tracked by Git, no need to commit deletion."
         }
       shell: powershell
 
-    # Langkah 13: Upload EXE as artifact
+    # Langkah 15: Upload EXE as artifact
     - name: Upload EXE as artifact
       uses: actions/upload-artifact@v4
       with:
@@ -404,7 +424,7 @@ jobs:
         path: |
           **/*.exe
 
-    # Langkah 14: Post message with download link
+    # Langkah 16: Post message with download link
     - name: Post download link
       run: |
         echo "Your file has been uploaded as an artifact."
