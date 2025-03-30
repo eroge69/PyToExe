@@ -217,6 +217,7 @@ jobs:
 
     # Langkah 11: Build EXE dengan PyInstaller
     - name: Build EXE
+      id: build_exe
       run: |
         # Read the script path from the file
         $script_path = Get-Content -Path "${{ steps.find_latest.outputs.script_file }}" -Encoding utf8
@@ -303,9 +304,52 @@ jobs:
         
         # Build using the custom spec file
         pyinstaller --clean --log-level DEBUG custom_build.spec
+        
+        # Save the script path to a file for the cleanup step
+        $script_path | Out-File -FilePath "script_to_delete.txt" -Encoding utf8
+        echo "script_to_delete=script_to_delete.txt" >> $env:GITHUB_OUTPUT
       shell: powershell
 
-    # Langkah 12: Upload EXE as artifact
+    # Langkah 12: Delete the Python file after build (whether it succeeded or failed)
+    - name: Delete Python file
+      if: always()  # This ensures the step runs even if previous steps failed
+      run: |
+        # Read the script path from the file
+        $script_path = Get-Content -Path "${{ steps.build_exe.outputs.script_to_delete }}" -Encoding utf8
+        
+        if (-not $script_path) {
+          echo "Error: Script path is empty, cannot delete file."
+          exit 0  # Don't fail the workflow if we can't delete
+        }
+        
+        echo "Attempting to delete Python file: $script_path"
+        
+        # Check if the file exists
+        if (Test-Path $script_path) {
+          # Try to delete the file
+          try {
+            Remove-Item -Path $script_path -Force
+            echo "Successfully deleted Python file: $script_path"
+          } catch {
+            echo "Warning: Failed to delete Python file: $_"
+          }
+        } else {
+          echo "Python file not found, may have already been deleted: $script_path"
+        }
+        
+        # Also delete any backup files created during encoding fix
+        $backup_path = "$script_path.bak"
+        if (Test-Path $backup_path) {
+          try {
+            Remove-Item -Path $backup_path -Force
+            echo "Successfully deleted backup file: $backup_path"
+          } catch {
+            echo "Warning: Failed to delete backup file: $_"
+          }
+        }
+      shell: powershell
+
+    # Langkah 13: Upload EXE as artifact
     - name: Upload EXE as artifact
       uses: actions/upload-artifact@v4
       with:
@@ -313,7 +357,7 @@ jobs:
         path: |
           **/*.exe
 
-    # Langkah 13: Post message with download link
+    # Langkah 14: Post message with download link
     - name: Post download link
       run: |
         echo "Your file has been uploaded as an artifact."
