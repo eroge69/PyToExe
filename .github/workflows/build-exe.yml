@@ -21,9 +21,7 @@ on:
         description: 'Specific Python file to build (leave empty for auto-detect)'
         required: false
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
+# Removed concurrency configuration to allow parallel execution
 
 jobs:
   build:
@@ -444,7 +442,7 @@ jobs:
         git config --global user.email "actions@github.com"
       shell: powershell
 
-    # Langkah 14: Commit and push the deletion with pull first
+    # Langkah 14: Commit and push the deletion with enhanced conflict resolution
     - name: Commit and push deletion
       if: always()  # This ensures the step runs even if previous steps failed
       run: |
@@ -469,7 +467,7 @@ jobs:
           git commit -m "Remove Python source file after building EXE: $relative_path"
           
           # Push with retries to handle potential race conditions
-          $max_retries = 3
+          $max_retries = 5  # Increased from 3 to 5 for better handling of concurrent actions
           $retry_count = 0
           $push_success = $false
           
@@ -483,7 +481,8 @@ jobs:
             } catch {
               $retry_count++
               echo "Push failed, retrying ($retry_count/$max_retries)..."
-              Start-Sleep -Seconds 5
+              # Exponential backoff: wait longer between retries
+              Start-Sleep -Seconds (5 * $retry_count)
             }
           }
           
