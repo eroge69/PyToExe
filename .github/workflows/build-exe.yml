@@ -400,41 +400,41 @@ jobs:
                     print(f"Successfully deleted locally: {file_path}")
                 else:
                     print(f"File not found: {file_path}")
-            
-            # Check for backup file
-            backup_path = file_path + '.bak'
-            if os.path.exists(backup_path):
-                os.remove(backup_path)
-                print(f"Successfully deleted backup: {backup_path}")
-        except Exception as e:
-            print(f"Error deleting file: {e}")
-            
-            # Try alternative method if first one fails
-            try:
-                if os.path.exists(file_path):
-                    # Sometimes direct deletion fails with special characters
-                    # Try to rename first to a simple name
-                    temp_path = os.path.join(os.path.dirname(file_path), "temp_to_delete.py")
-                    shutil.move(file_path, temp_path)
-                    os.remove(temp_path)
-                    print(f"Successfully deleted via rename method: {file_path}")
-            except Exception as e2:
-                print(f"Alternative deletion also failed: {e2}")
-    
-    if __name__ == "__main__":
-        if len(sys.argv) > 1:
-            file_path = sys.argv[1]
-            delete_file(file_path)
-        else:
-            print("No file path provided")
-    "@
-    
-    # Save the deletion script
-    $delete_script | Out-File -FilePath "delete_file.py" -Encoding utf8
-    
-    # Run the deletion script
-    python delete_file.py "$script_path"
-  shell: powershell
+                
+                # Check for backup file
+                backup_path = file_path + '.bak'
+                if os.path.exists(backup_path):
+                    os.remove(backup_path)
+                    print(f"Successfully deleted backup: {backup_path}")
+            except Exception as e:
+                print(f"Error deleting file: {e}")
+                
+                # Try alternative method if first one fails
+                try:
+                    if os.path.exists(file_path):
+                        # Sometimes direct deletion fails with special characters
+                        # Try to rename first to a simple name
+                        temp_path = os.path.join(os.path.dirname(file_path), "temp_to_delete.py")
+                        shutil.move(file_path, temp_path)
+                        os.remove(temp_path)
+                        print(f"Successfully deleted via rename method: {file_path}")
+                except Exception as e2:
+                    print(f"Alternative deletion also failed: {e2}")
+        
+        if __name__ == "__main__":
+            if len(sys.argv) > 1:
+                file_path = sys.argv[1]
+                delete_file(file_path)
+            else:
+                print("No file path provided")
+        "@
+        
+        # Save the deletion script
+        $delete_script | Out-File -FilePath "delete_file.py" -Encoding utf8
+        
+        # Run the deletion script
+        python delete_file.py "$script_path"
+      shell: powershell
 
     # Langkah 13: Configure Git
     - name: Configure Git
