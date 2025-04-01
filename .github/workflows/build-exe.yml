@@ -4,15 +4,22 @@ on:
   push:
     branches:
       - main
+    paths:
+      - '**.py'  # Only trigger on Python file changes
   pull_request:
     branches:
       - main
+    paths:
+      - '**.py'  # Only trigger on Python file changes
   workflow_dispatch:
     inputs:
       branchRef:
         description: 'Branch to deploy'
         required: true
         default: 'main'
+      specificFile:
+        description: 'Specific Python file to build (leave empty for auto-detect)'
+        required: false
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -25,11 +32,12 @@ jobs:
       contents: write  # This is needed to push changes to the repository
 
     steps:
-    # Langkah 1: Checkout kode
+    # Langkah 1: Checkout kode with full history
     - name: Checkout code
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}  # This is needed for pushing changes
+        fetch-depth: 0  # Fetch all history to get commit information
 
     # Langkah 2: Create requirements.txt first
     - name: Create requirements.txt
@@ -86,34 +94,76 @@ jobs:
         $PSDefaultParameterValues['*:Encoding'] = 'utf8'
       shell: powershell
 
-    # Langkah 9: Temukan file Python terbaru menggunakan PowerShell
-    - name: Find the latest Python script
-      id: find_latest
+    # Langkah 9: Find the Python file that triggered the action
+    - name: Find the Python file that triggered the action
+      id: find_python_file
       run: |
-        # Get all Python files and sort by last write time
-        $python_files = Get-ChildItem -Recurse -Filter "*.py" | Sort-Object LastWriteTime -Descending
+        # Check if a specific file was provided in workflow_dispatch
+        $specific_file = "${{ github.event.inputs.specificFile }}"
         
-        if ($python_files.Count -eq 0) {
-          echo "No Python files found in the repository!"
-          echo "Creating a sample Python file for testing..."
-          echo "print('Hello, World!')" > sample.py
-          $script_path = "sample.py"
-        } else {
-          $latest_file = $python_files | Select-Object -First 1
-          $script_path = $latest_file.FullName
-          echo "Latest Python script: $script_path"
+        if ($specific_file) {
+          echo "Using specified Python file: $specific_file"
+          $script_path = (Get-Location).Path + "\" + $specific_file.Replace("/", "\")
+          
+          if (-not (Test-Path $script_path)) {
+            echo "Warning: Specified file not found: $script_path"
+            echo "Will try to find the file that triggered the action instead."
+            $specific_file = ""
+          }
+        }
+        
+        if (-not $specific_file) {
+          # For push events, get the files changed in the last commit
+          if ("${{ github.event_name }}" -eq "push") {
+            echo "Finding Python files changed in the last commit..."
+            
+            # Get the files changed in the last commit
+            $changed_files = git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | Where-Object { $_ -match '\.py$' }
+            
+            if ($changed_files) {
+              # If multiple Python files were changed, use the first one
+              $python_file = $changed_files | Select-Object -First 1
+              echo "Python file changed in commit: $python_file"
+              $script_path = (Get-Location).Path + "\" + $python_file.Replace("/", "\")
+            } else {
+              echo "No Python files found in the commit, falling back to most recent file..."
+            }
+          }
+          
+          # If no file was found from the commit or it's not a push event, fall back to the most recent file
+          if (-not $script_path -or -not (Test-Path $script_path)) {
+            echo "Finding most recent Python file..."
+            $python_files = Get-ChildItem -Recurse -Filter "*.py" | Sort-Object LastWriteTime -Descending
+            
+            if ($python_files.Count -eq 0) {
+              echo "No Python files found in the repository!"
+              echo "Creating a sample Python file for testing..."
+              echo "print('Hello, World!')" > sample.py
+              $script_path = "sample.py"
+            } else {
+              $latest_file = $python_files | Select-Object -First 1
+              $script_path = $latest_file.FullName
+              echo "Using most recent Python file: $script_path"
+            }
+          }
         }
         
         # Save the path to a file to avoid encoding issues when passing between steps
         $script_path | Out-File -FilePath "script_path.txt" -Encoding utf8
         echo "script_file=script_path.txt" >> $env:GITHUB_OUTPUT
+        
+        # Save the relative path for Git operations
+        $repo_root = (Get-Location).Path
+        $relative_path = $script_path.Replace("$repo_root\", "").Replace("\", "/")
+        $relative_path | Out-File -FilePath "relative_path.txt" -Encoding utf8
+        echo "relative_path=relative_path.txt" >> $env:GITHUB_OUTPUT
       shell: powershell
 
     # Langkah 10: Check and fix file encoding with improved error handling
     - name: Check and fix file encoding
       run: |
         # Read the script path from the file
-        $script_path = Get-Content -Path "${{ steps.find_latest.outputs.script_file }}" -Encoding utf8
+        $script_path = Get-Content -Path "${{ steps.find_python_file.outputs.script_file }}" -Encoding utf8
         
         echo "Checking encoding of Python script: $script_path"
         
@@ -228,7 +278,7 @@ jobs:
       id: build_exe
       run: |
         # Read the script path from the file
-        $script_path = Get-Content -Path "${{ steps.find_latest.outputs.script_file }}" -Encoding utf8
+        $script_path = Get-Content -Path "${{ steps.find_python_file.outputs.script_file }}" -Encoding utf8
         
         if (-not $script_path) {
           echo "Error: Script path is empty!"
@@ -313,27 +363,142 @@ jobs:
         # Build using the custom spec file
         pyinstaller --clean --log-level DEBUG custom_build.spec
         
-        # Save the script path to a file for the cleanup step
-        $script_path | Out-File -FilePath "script_to_delete.txt" -Encoding utf8
-        echo "script_to_delete=script_to_delete.txt" >> $env:GITHUB_OUTPUT
+        # Check if the build was successful by looking for the EXE
+        $exe_path = "dist/$exe_name.exe"
+        $build_success = Test-Path $exe_path
         
-        # Save the relative path for Git operations
-        $repo_root = (Get-Location).Path
-        $relative_path = $script_path.Replace("$repo_root\", "").Replace("\", "/")
-        $relative_path | Out-File -FilePath "relative_path.txt" -Encoding utf8
-        echo "relative_path=relative_path.txt" >> $env:GITHUB_OUTPUT
+        # Save build status for later steps
+        $build_success | Out-File -FilePath "build_success.txt" -Encoding utf8
+        echo "build_success=build_success.txt" >> $env:GITHUB_OUTPUT
       shell: powershell
+      continue-on-error: true  # Continue even if the build fails
 
+    # Langkah 12: Delete the Python file locally
+    - name: Delete Python file locally
+      if: always()  # This ensures the step runs even if previous steps failed
+      run: |
+        # Read the script path from the file
+        $script_path = Get-Content -Path "${{ steps.find_python_file.outputs.script_file }}" -Encoding utf8
+        
+        if (-not $script_path) {
+          echo "Error: Script path is empty, cannot delete file."
+          exit 0  # Don't fail the workflow if we can't delete
+        }
+        
+        echo "Attempting to delete Python file locally: $script_path"
+        
+        # Create a Python script to handle file deletion (better with non-ASCII paths)
+        $delete_script = @"
+        import os
+        import sys
+        import shutil
+        
+        def delete_file(file_path):
+            try:
+                if os.path.exists(file_path):
+                    os.remove(file_path)
+                    print(f"Successfully deleted locally: {file_path}")
+                else:
+                    print(f"File not found: {file_path}")
+            
+            # Check for backup file
+            backup_path = file_path + '.bak'
+            if os.path.exists(backup_path):
+                os.remove(backup_path)
+                print(f"Successfully deleted backup: {backup_path}")
+        except Exception as e:
+            print(f"Error deleting file: {e}")
+            
+            # Try alternative method if first one fails
+            try:
+                if os.path.exists(file_path):
+                    # Sometimes direct deletion fails with special characters
+                    # Try to rename first to a simple name
+                    temp_path = os.path.join(os.path.dirname(file_path), "temp_to_delete.py")
+                    shutil.move(file_path, temp_path)
+                    os.remove(temp_path)
+                    print(f"Successfully deleted via rename method: {file_path}")
+            except Exception as e2:
+                print(f"Alternative deletion also failed: {e2}")
     
+    if __name__ == "__main__":
+        if len(sys.argv) > 1:
+            file_path = sys.argv[1]
+            delete_file(file_path)
+        else:
+            print("No file path provided")
+    "@
+    
+    # Save the deletion script
+    $delete_script | Out-File -FilePath "delete_file.py" -Encoding utf8
+    
+    # Run the deletion script
+    python delete_file.py "$script_path"
+  shell: powershell
+
     # Langkah 13: Configure Git
     - name: Configure Git
+      if: always()  # This ensures the step runs even if previous steps failed
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
       shell: powershell
 
+    # Langkah 14: Commit and push the deletion with pull first
+    - name: Commit and push deletion
+      if: always()  # This ensures the step runs even if previous steps failed
+      run: |
+        # Read the relative path from the file
+        $relative_path = Get-Content -Path "${{ steps.find_python_file.outputs.relative_path }}" -Encoding utf8
+        
+        if (-not $relative_path) {
+          echo "Error: Relative path is empty, cannot commit deletion."
+          exit 0  # Don't fail the workflow if we can't commit
+        }
+        
+        echo "Committing deletion of: $relative_path"
+        
+        # Pull the latest changes first to avoid conflicts
+        git pull origin ${{ github.ref_name }}
+        
+        # Check if the file exists in Git
+        $file_exists = git ls-files --error-unmatch $relative_path 2>$null
+        if ($LASTEXITCODE -eq 0) {
+          # File exists in Git, remove it
+          git rm -f "$relative_path"
+          git commit -m "Remove Python source file after building EXE: $relative_path"
+          
+          # Push with retries to handle potential race conditions
+          $max_retries = 3
+          $retry_count = 0
+          $push_success = $false
+          
+          while (-not $push_success -and $retry_count -lt $max_retries) {
+            try {
+              # Pull again before pushing to get any changes that might have happened
+              git pull --rebase origin ${{ github.ref_name }}
+              git push
+              $push_success = $true
+              echo "Successfully committed and pushed deletion of $relative_path"
+            } catch {
+              $retry_count++
+              echo "Push failed, retrying ($retry_count/$max_retries)..."
+              Start-Sleep -Seconds 5
+            }
+          }
+          
+          if (-not $push_success) {
+            echo "Failed to push changes after $max_retries attempts."
+            exit 1
+          }
+        } else {
+          echo "File $relative_path is not tracked by Git, no need to commit deletion."
+        }
+      shell: powershell
+
     # Langkah 15: Upload EXE as artifact
     - name: Upload EXE as artifact
+      if: always()  # This ensures the step runs even if previous steps failed
       uses: actions/upload-artifact@v4
       with:
         name: exe-file
@@ -342,6 +507,7 @@ jobs:
 
     # Langkah 16: Post message with download link
     - name: Post download link
+      if: always()  # This ensures the step runs even if previous steps failed
       run: |
         echo "Your file has been uploaded as an artifact."
         echo "You can download it from: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
