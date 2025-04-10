@@ -383,7 +383,7 @@ jobs:
       shell: powershell
       continue-on-error: true  # Continue even if the build fails
 
-    # IMPROVED STEP: Create a clean ZIP with just the Python file and EXE
+    # SIMPLIFIED STEP: Create a clean ZIP with just the Python file and EXE
     - name: Create ZIP with Python file and EXE
       if: always()  # This ensures the step runs even if previous steps failed
       run: |
@@ -436,14 +436,6 @@ jobs:
         # Save the ZIP file path for later steps
         $zip_file | Out-File -FilePath "zip_file.txt" -Encoding utf8
         echo "zip_file=zip_file.txt" >> $env:GITHUB_OUTPUT
-        
-        # Also create a separate directory for the standalone EXE
-        if ($build_success -and (Test-Path $exe_path)) {
-          $exe_dir = "exe_output"
-          New-Item -ItemType Directory -Path $exe_dir -Force
-          Copy-Item -Path $exe_path -Destination "$exe_dir\" -Force
-          echo "Copied standalone EXE to: $exe_dir\$exe_file_name"
-        }
       shell: powershell
 
     # Langkah 12: Delete the Python file locally
@@ -570,21 +562,20 @@ jobs:
         }
       shell: powershell
 
-    # Langkah 15: Upload artifacts with specific paths
-    - name: Upload artifacts
+    # Langkah 15: Upload only the ZIP file as artifact
+    - name: Upload ZIP artifact
       if: always()  # This ensures the step runs even if previous steps failed
       uses: actions/upload-artifact@v4
       with:
-        name: build-outputs
+        name: build-output
         path: |
           *.zip
-          exe_output/*.exe
         if-no-files-found: warn
 
     # Langkah 16: Post message with download link
     - name: Post download link
       if: always()  # This ensures the step runs even if previous steps failed
       run: |
-        echo "Your files have been uploaded as artifacts."
-        echo "You can download them from: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        echo "Your ZIP file has been uploaded as an artifact."
+        echo "You can download it from: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
         echo "The ZIP file contains both the Python source and the compiled EXE."
