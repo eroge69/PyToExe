@@ -369,9 +369,16 @@ jobs:
         # Build using the custom spec file
         pyinstaller --clean --log-level DEBUG custom_build.spec
         
+        # List the contents of the dist directory to debug
+        echo "Listing contents of dist directory:"
+        Get-ChildItem -Path "dist" -Recurse | ForEach-Object { $_.FullName }
+        
         # Check if the build was successful by looking for the EXE
         $exe_path = "dist/$exe_name.exe"
         $build_success = Test-Path $exe_path
+        
+        echo "EXE path: $exe_path"
+        echo "Build success: $build_success"
         
         # Save build status for later steps
         $build_success | Out-File -FilePath "build_success.txt" -Encoding utf8
@@ -380,16 +387,27 @@ jobs:
         # Save the EXE path for later steps
         $exe_path | Out-File -FilePath "exe_path.txt" -Encoding utf8
         echo "exe_path=exe_path.txt" >> $env:GITHUB_OUTPUT
+        
+        # Save the EXE name for later steps
+        $exe_name | Out-File -FilePath "exe_name.txt" -Encoding utf8
+        echo "exe_name=exe_name.txt" >> $env:GITHUB_OUTPUT
+        
+        # Create an output directory for the EXE
+        if ($build_success) {
+          $exe_output_dir = "exe_output"
+          New-Item -ItemType Directory -Path $exe_output_dir -Force
+          Copy-Item -Path $exe_path -Destination "$exe_output_dir\" -Force
+          echo "Copied EXE to output directory: $exe_output_dir\$exe_name.exe"
+        }
       shell: powershell
       continue-on-error: true  # Continue even if the build fails
 
-    # SIMPLIFIED STEP: Create a clean ZIP with just the Python file and EXE
-    - name: Create ZIP with Python file and EXE
+    # MODIFIED STEP: Create a ZIP with just the Python file
+    - name: Create ZIP with Python file
       if: always()  # This ensures the step runs even if previous steps failed
       run: |
         # Read paths from files
         $script_path = Get-Content -Path "${{ steps.find_python_file.outputs.script_file }}" -Encoding utf8
-        $exe_path = Get-Content -Path "${{ steps.build_exe.outputs.exe_path }}" -Encoding utf8
         $file_name = Get-Content -Path "${{ steps.find_python_file.outputs.file_name }}" -Encoding utf8
         
         if (-not $script_path) {
@@ -397,16 +415,10 @@ jobs:
           exit 0
         }
         
-        # Check if the EXE was built successfully
-        $build_success = $false
-        $build_success_file = "${{ steps.build_exe.outputs.build_success }}"
-        
-        if (Test-Path $build_success_file) {
-          $build_success = [System.Convert]::ToBoolean((Get-Content -Path $build_success_file -Encoding utf8))
-        }
+        echo "Script path: $script_path"
         
         # Create a clean directory for the ZIP contents
-        $zip_dir = "clean_zip_contents"
+        $zip_dir = "py_zip_contents"
         New-Item -ItemType Directory -Path $zip_dir -Force
         
         # Copy the Python file to the clean directory
@@ -414,24 +426,18 @@ jobs:
         Copy-Item -Path $script_path -Destination $py_file_in_zip -Force
         echo "Copied Python file to ZIP directory: $py_file_in_zip"
         
-        # If the EXE was built successfully, copy it to the clean directory
-        if ($build_success -and (Test-Path $exe_path)) {
-          $exe_file_name = Split-Path -Leaf $exe_path
-          $exe_file_in_zip = "$zip_dir\$exe_file_name"
-          Copy-Item -Path $exe_path -Destination $exe_file_in_zip -Force
-          echo "Copied EXE file to ZIP directory: $exe_file_in_zip"
-        } else {
-          echo "EXE was not built successfully or not found, ZIP will only contain the Python file."
-        }
-        
         # Create the ZIP file with a clean name
         $base_name = $file_name -replace '\.py$', ''
-        $zip_file = "$base_name.zip"
+        $zip_file = "$base_name-source.zip"
         
         # Use PowerShell's Compress-Archive to create the ZIP
         Compress-Archive -Path "$zip_dir\*" -DestinationPath $zip_file -Force
         
-        echo "Created clean ZIP file: $zip_file"
+        echo "Created Python source ZIP file: $zip_file"
+        
+        # List all files in the current directory to debug
+        echo "Listing all files in current directory:"
+        Get-ChildItem -Path "." | ForEach-Object { $_.Name }
         
         # Save the ZIP file path for later steps
         $zip_file | Out-File -FilePath "zip_file.txt" -Encoding utf8
@@ -562,20 +568,31 @@ jobs:
         }
       shell: powershell
 
-    # Langkah 15: Upload only the ZIP file as artifact
-    - name: Upload ZIP artifact
+    # Langkah 15: Upload artifacts separately
+    - name: Upload Python source ZIP
       if: always()  # This ensures the step runs even if previous steps failed
       uses: actions/upload-artifact@v4
       with:
-        name: build-output
+        name: python-source
         path: |
-          *.zip
+          *-source.zip
+        if-no-files-found: warn
+
+    - name: Upload EXE artifact
+      if: always()  # This ensures the step runs even if previous steps failed
+      uses: actions/upload-artifact@v4
+      with:
+        name: executable
+        path: |
+          dist/*.exe
+          exe_output/*.exe
         if-no-files-found: warn
 
     # Langkah 16: Post message with download link
     - name: Post download link
       if: always()  # This ensures the step runs even if previous steps failed
       run: |
-        echo "Your ZIP file has been uploaded as an artifact."
-        echo "You can download it from: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-        echo "The ZIP file contains both the Python source and the compiled EXE."
+        echo "Your files have been uploaded as separate artifacts."
+        echo "You can download them from: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        echo "- The Python source code is in the 'python-source' artifact"
+        echo "- The compiled EXE is in the 'executable' artifact"
