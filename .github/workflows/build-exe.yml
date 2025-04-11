@@ -504,41 +504,10 @@ jobs:
         path: |
           **/*.exe
 
-    # Upload Python source file as a separate artifact
-    - name: Upload Python source file
-      if: always()  # This ensures the step runs even if previous steps failed
-      run: |
-        # Read the script path from the file
-        $script_path = Get-Content -Path "${{ steps.find_python_file.outputs.script_file }}" -Encoding utf8
-        
-        if (-not $script_path) {
-          echo "Error: Script path is empty, cannot upload Python source."
-          exit 0
-        }
-        
-        # Create a directory for the Python source
-        $py_source_dir = "python_source"
-        New-Item -ItemType Directory -Path $py_source_dir -Force
-        
-        # Get the file name
-        $file_name = Split-Path -Leaf $script_path
-        
-        # Copy the Python file to the source directory
-        Copy-Item -Path $script_path -Destination "$py_source_dir\$file_name" -Force
-        echo "Copied Python file to: $py_source_dir\$file_name"
-      shell: powershell
-    
-    - name: Upload Python source artifact
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: python-source
-        path: python_source
-        if-no-files-found: warn
-
     # Langkah 16: Post message with download link
     - name: Post download link
       if: always()  # This ensures the step runs even if previous steps failed
       run: |
         echo "Your file has been uploaded as an artifact."
         echo "You can download it from: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
