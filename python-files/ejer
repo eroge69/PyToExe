@@ -1,0 +1,8 @@
+# Nivel básico: Verifica una contraseña
+flag = "CTF{simple_flag_here}"
+password = input("Introduce la contraseña para obtener el flag: ")
+
+if password == "1234":
+    print(f"¡Correcto! Aquí está tu flag: {flag}")
+else:
+    print("Contraseña incorrecta. Intenta de nuevo.")
