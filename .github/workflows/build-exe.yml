@@ -307,9 +307,9 @@ jobs:
           echo "No additional dependencies found."
         }
         
-        # Build with Nuitka
+        # Build with Nuitka - fixed command
         echo "Building with Nuitka..."
-        python -m nuitka --standalone --follow-imports --output-dir=dist --remove-output --show-progress --show-memory --enable-plugin=numpy,tk-inter,multiprocessing --include-package-data=* "$script_path"
+        python -m nuitka --standalone --output-dir=dist --remove-output --show-progress --show-memory --enable-plugin=tk-inter "$script_path"
         
         # Check if the build was successful by looking for the EXE
         $exe_path = "dist/$exe_name.exe"
