@@ -1,4 +1,4 @@
-name: Build Python to EXE
+name: Build Python to EXE with Nuitka
 
 on:
   push:
@@ -21,8 +21,6 @@ on:
         description: 'Specific Python file to build (leave empty for auto-detect)'
         required: false
 
-# Removed concurrency configuration to allow parallel execution
-
 jobs:
   build:
     runs-on: windows-latest
@@ -37,10 +35,12 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}  # This is needed for pushing changes
         fetch-depth: 0  # Fetch all history to get commit information
 
-    # Langkah 2: Create requirements.txt first
+    # Langkah 2: Create requirements.txt with Nuitka instead of PyInstaller
     - name: Create requirements.txt
       run: |
-        echo "pyinstaller" > requirements.txt
+        echo "nuitka" > requirements.txt
+        echo "ordered-set" >> requirements.txt  # Required by Nuitka
+        echo "zstandard" >> requirements.txt    # For better compression
         echo "chardet" >> requirements.txt
       shell: powershell
 
@@ -73,16 +73,16 @@ jobs:
         pip install -r requirements.txt
       shell: powershell
 
-    # Langkah 7: Cache PyInstaller build files
-    - name: Cache PyInstaller build files
+    # Langkah 7: Cache Nuitka build files
+    - name: Cache Nuitka build files
       uses: actions/cache@v3
       with:
         path: |
           build
-          spec
-        key: ${{ runner.os }}-pyinstaller-${{ hashFiles('**/*.py') }}
+          dist
+        key: ${{ runner.os }}-nuitka-${{ hashFiles('**/*.py') }}
         restore-keys: |
-          ${{ runner.os }}-pyinstaller-
+          ${{ runner.os }}-nuitka-
 
     # Langkah 8: Set PowerShell to use UTF-8
     - name: Configure PowerShell encoding
@@ -271,8 +271,8 @@ jobs:
         python fix_encoding.py "$script_path"
       shell: powershell
 
-    # Langkah 11: Build EXE dengan PyInstaller
-    - name: Build EXE
+    # Langkah 11: Build EXE with Nuitka instead of PyInstaller
+    - name: Build EXE with Nuitka
       id: build_exe
       run: |
         # Read the script path from the file
@@ -286,14 +286,7 @@ jobs:
         echo "Building EXE for script: $script_path"
         
         # Get the directory of the script
-        $output_dir = Split-Path -Path $script_path
-        
-        if (-not $output_dir) {
-          echo "Using current directory as output directory"
-          $output_dir = "."
-        }
-        
-        echo "Output directory: $output_dir"
+        $script_dir = Split-Path -Path $script_path
         
         # Extract the file name without extension for the EXE name
         $file_name = Split-Path -Leaf $script_path
@@ -301,69 +294,45 @@ jobs:
         
         echo "EXE name will be: $exe_name"
         
-        # Create a custom PyInstaller spec file to handle encoding issues
-        $spec_content = @"
-        # -*- coding: utf-8 -*-
-        import sys
-        from PyInstaller.building.api import PYZ, EXE, COLLECT
-        from PyInstaller.building.build_main import Analysis
+        # Install any dependencies found in the script
+        echo "Analyzing script for dependencies..."
+        python -m pip install pipreqs
+        python -c "import os; os.makedirs('temp_req', exist_ok=True)"
+        python -m pipreqs.pipreqs --force --savepath temp_req/requirements.txt $script_dir
         
-        # Set the correct encoding for sys.stdout and sys.stderr
-        if hasattr(sys.stdout, 'reconfigure'):
-            sys.stdout.reconfigure(encoding='utf-8')
-        if hasattr(sys.stderr, 'reconfigure'):
-            sys.stderr.reconfigure(encoding='utf-8')
+        if (Test-Path "temp_req/requirements.txt") {
+          echo "Installing dependencies found in script..."
+          python -m pip install -r temp_req/requirements.txt
+        } else {
+          echo "No additional dependencies found."
+        }
         
-        a = Analysis(
-            ['$($script_path -replace '\\', '\\\\')'],
-            pathex=[],
-            binaries=[],
-            datas=[],
-            hiddenimports=[],
-            hookspath=[],
-            hooksconfig={},
-            runtime_hooks=[],
-            excludes=[],
-            win_no_prefer_redirects=False,
-            win_private_assemblies=False,
-            cipher=None,
-            noarchive=False,
-        )
-        
-        pyz = PYZ(a.pure, a.zipped_data, cipher=None)
-        
-        exe = EXE(
-            pyz,
-            a.scripts,
-            a.binaries,
-            a.zipfiles,
-            a.datas,
-            [],
-            name='$exe_name',
-            debug=False,
-            bootloader_ignore_signals=False,
-            strip=False,
-            upx=True,
-            upx_exclude=[],
-            runtime_tmpdir=None,
-            console=True,
-            disable_windowed_traceback=False,
-            argv_emulation=False,
-            target_arch=None,
-            codesign_identity=None,
-            entitlements_file=None,
-        )
-        "@
-        
-        # Save the spec file
-        $spec_content | Out-File -FilePath "custom_build.spec" -Encoding utf8
-        
-        # Build using the custom spec file
-        pyinstaller --clean --log-level DEBUG custom_build.spec
+        # Build with Nuitka
+        echo "Building with Nuitka..."
+        python -m nuitka --standalone --follow-imports --windows-disable-console=no --windows-icon-from-ico=NONE --output-dir=dist --remove-output --show-progress --show-memory --enable-plugin=numpy,tk-inter,multiprocessing --include-package-data=* "$script_path"
         
         # Check if the build was successful by looking for the EXE
         $exe_path = "dist/$exe_name.exe"
+        if (-not (Test-Path $exe_path)) {
+          # Try alternative path format
+          $exe_path = "dist/$exe_name.dist/$exe_name.exe"
+        }
+        
         $build_success = Test-Path $exe_path
+        
+        if ($build_success) {
+          echo "Build successful! EXE created at: $exe_path"
+          
+          # Copy the EXE to the root dist directory for easier access
+          if ($exe_path -ne "dist/$exe_name.exe") {
+            New-Item -ItemType Directory -Force -Path "dist"
+            Copy-Item $exe_path "dist/$exe_name.exe"
+            echo "Copied EXE to dist/$exe_name.exe"
+          }
+        } else {
+          echo "Build failed! Could not find EXE at expected locations."
+          exit 1
+        }
         
         # Save build status for later steps
         $build_success | Out-File -FilePath "build_success.txt" -Encoding utf8
@@ -502,7 +471,7 @@ jobs:
       with:
         name: exe-file
         path: |
-          **/*.exe
+          dist/**/*.exe
 
     # Langkah 16: Post message with download link
     - name: Post download link
@@ -510,4 +479,3 @@ jobs:
       run: |
         echo "Your file has been uploaded as an artifact."
         echo "You can download it from: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-
