@@ -311,7 +311,7 @@ jobs:
         # Build with Nuitka - simplified command with better error handling
         echo "Building with Nuitka..."
         
-        # Create a more robust build script
+        # Create a more robust build script with valid Nuitka options
         $build_script = @"
         import os
         import sys
@@ -326,7 +326,6 @@ jobs:
                     "--output-dir=dist",
                     "--remove-output",
                     "--low-memory",  # Use less memory
-                    "--disable-console-control-handler",  # More stable on Windows
                     script_path
                 ]
                 
@@ -348,7 +347,6 @@ jobs:
                             "--standalone",
                             "--output-dir=dist",
                             "--low-memory",
-                            "--disable-console-control-handler",
                             "--jobs=1",  # Single threaded
                             "--nofollow-imports",  # Don't follow imports
                             script_path
