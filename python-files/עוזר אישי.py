@@ -1,6 +1,15 @@
+import os
+import json
 import tkinter as tk
 from tkinter import simpledialog
+import webbrowser
+import openai  # השתמש ב-API של OpenAI
+import pyautogui  # יכול לשמש עבור פעולות במחשב
 
+# הגדרת המפתח של OpenAI
+openai.api_key = "הכנס את המפתח שלך כאן"
+
+# פונקציה לבקש API Key אם הוא לא קיים
 def get_api_key():
     config_file = "config.json"
     
@@ -38,6 +47,22 @@ def paste(event):
     text = root.clipboard_get()  # קבל את התוכן מהקליפבורד
     entry.insert(tk.END, text)   # הדבק בשדה ה-Entry
 
+# הפונקציה שתשאל את GPT מה לעשות אם הוא לא מבין את הפקודה
+def ask_gpt_for_action(user_input):
+    try:
+        # שלח את הפקודה ל-GPT
+        response = openai.Completion.create(
+            engine="text-davinci-003",  # בחר את המנוע של GPT-3 (או GPT-4 אם יש לך גישה)
+            prompt=f"אני עוזר אישי חכם. הפקודה היא: {user_input}. מה עלי לעשות?",
+            max_tokens=150,
+            temperature=0.7
+        )
+        action = response.choices[0].text.strip()  # קבל את התשובה מ-GPT
+        return action
+    except Exception as e:
+        print(f"לא הצלחנו לשאול את GPT: {e}")
+        return "הייתה בעיה בשיחה עם הבינה המלאכותית."
+
 # ממשק משתמש צ'אט
 def start_chat():
     global root, entry
@@ -48,9 +73,19 @@ def start_chat():
         user_input = entry.get()
         if user_input.lower() == "exit":
             root.quit()
+        elif user_input.lower() == "פתח אתר":
+            listbox.insert(tk.END, f"אתה: {user_input}")
+            listbox.insert(tk.END, "עוזר: פותח את האתר...")
+            open_url()  # פונקציה שתפתח אתר
+        elif user_input.lower() == "שלח מייל":
+            listbox.insert(tk.END, f"אתה: {user_input}")
+            listbox.insert(tk.END, "עוזר: שולח את המייל...")
+            send_email()  # תוכל להוסיף פונקציה לשליחת מייל
         else:
             listbox.insert(tk.END, f"אתה: {user_input}")
-            listbox.insert(tk.END, f"עוזר: אני לומד אותך!")
+            listbox.insert(tk.END, "עוזר: לא הבנתי את הפקודה, שואל את GPT...")
+            action = ask_gpt_for_action(user_input)  # פנה ל-GPT לקבלת תשובה
+            listbox.insert(tk.END, f"עוזר: {action}")
 
     # עיצוב ממשק
     listbox = tk.Listbox(root, height=15, width=50)
@@ -66,6 +101,14 @@ def start_chat():
     entry.bind("<Control-v>", paste)
     
     root.mainloop()
+
+# פונקציה לפתיחה של אתר
+def open_url():
+    webbrowser.open("https://www.google.com")
+
+# פונקציה לשליחת מייל (דוגמה - תצטרך להוסיף את הפרטים שלך)
+def send_email():
+    print("שליחת המייל בוצעה בהצלחה!")
 
 # הפעלת הפונקציות
 if __name__ == "__main__":
