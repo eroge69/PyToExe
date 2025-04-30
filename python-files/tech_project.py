@@ -1,0 +1,735 @@
+#imports#
+from playsound3 import playsound
+from textwrap3 import wrap
+from textwrap3 import fill
+import random
+import time
+import sys
+import easygui
+
+#ahhhhhhhhhhhhh#
+global heaven
+global hell
+global loop
+global damn
+global save
+global correct
+correct = 0
+loop = 0
+heaven = 0
+hell = 0
+damn = 0
+save = 0
+
+#the program#
+def main():
+    print(fill( "Python and Audacity and how they co-exist"))
+    time.sleep(3.0)
+    print("   ")
+    print("   ")
+    print(fill( "     Python and Audacity are two things that can be hard to use together in one program. Python without any add-ons is a glorified calculator that can talk to you occasionally while Audacity is, as far as I can tell, an software program that edits audio. The bridge between them, the installing program pip and the modual playsound and other Pypi models. Python uses that information to call upon files. For example, I'll call it to play twinkle twinkle little star."))
+    time.sleep(7.0)
+    ready = str(input("Ready?"))
+    error()
+############
+def error():  
+    hell = easygui.buttonbox("The file TwinkleTwinkle.wav is not working. Please retry", "Error",('Abort', 'Retry', 'Ignore'))
+    if hell == 'Retry':
+        easygui.msgbox('Reloading', 'Error')
+        mono()
+    if hell == 'Ignore':
+        easygui.msgbox('Continuing', 'Error')
+        mono()
+    if hell == 'Abort':
+        easygui.msgbox('Shutting Down', 'Error')
+        mono()
+###############
+def mono():
+    print("")
+    time.sleep(1.0)
+    ppe = easygui.msgbox('Error, project not found', 'Error')
+    print("")
+    time.sleep(1.0)
+    ppe2 = easygui.msgbox('Error', 'Error')
+    print("")
+    time.sleep(1.0)
+    ppe3 = easygui.msgbox('', 'Error')
+    time.sleep(3.0)
+    print("")
+    loopera()
+###########################
+def loopera():
+    global loop
+    if loop == 58:
+        escape()
+    else:
+        looperb()
+        
+def looperb():
+    global loop
+    loop += 1
+    print( "error")
+    loopera()
+########################
+def escape():
+    clock = playsound('tiktok.wav', block=False)
+    time.sleep(7.0)
+    print("There is a grandfather clock in my closet.")
+    time.sleep(6.0)
+    print(fill( "I do not know how it got there, but I can remember when. It started when I heard the"))
+    time.sleep (7.5),
+    print("tick")
+    time.sleep (1.5),
+    print("tick")
+    time.sleep (3.5),
+    print(fill( "ticking in my head. I would sit at my laptop and write, code, do my assignments for class in the evenings, and I would hear it faintly,"))
+    time.sleep(6.5)
+    print("tick,")
+    time.sleep (1.5)
+    print("tick," ),
+    time.sleep (1.5)
+    print("tick.")
+    time.sleep (3.5)
+    print(fill("I thought it was just my next-door neighbors, or the people above me who seem to rearrange their furniture every week, but I heard it still in the moments around campus."))
+    time.sleep (8.5)
+    print("tick")
+    time.sleep (1.5)
+    print(fill("tick"))
+    time.sleep (1.5)
+    print(fill("tick"))
+    time.sleep (3.5)
+    print(fill("It drove me crazy, the constant sound of the clock. My lexapro does wonders, but it's not enough to stop the anxiety creeping up my spine when I hear that"))
+    time.sleep(6.5)
+    print("tick")
+    time.sleep (1.5),
+    print("tick")
+    time.sleep (1.5),
+    print("tick"),
+    time.sleep (1.5),
+    print(fill( "I only saw the clock when I opened my closet to get out something to wear. All of my things were missing, it was only the clock."))
+    time.sleep (6.5)
+    print(fill("     Its varnish is brown and its painted numbers are gold leaf, the inorganic insides are gold, pure, swinging side to side. Inside is a human heart that beasts to the"))
+    time.sleep (7.5)
+    print("tick")
+    time.sleep (2.5)
+    print("tick")
+    time.sleep (3.5)
+    print("tick")
+    time.sleep(7.0)
+    print(fill("Tonight, I stare at it, eyes wide and hands shaking. I haven’t slept in days, the ticking keeps me awake. It’s so loud now, ringing in my head to the point I can't focus in class because all I hear is "))
+    time.sleep(9.0)
+    print(fill("tick"))
+    time.sleep(1.5)
+    print(fill("tick"))
+    time.sleep(1.5)
+    print(fill("tick"))
+    time.sleep(1.5)
+    print(fill("tick"))
+    time.sleep(1.0)
+    print(fill("tick"))
+    time.sleep(1.0)
+    print(fill("tick"))
+    time.sleep(0.75)
+    print(fill("tick"))
+    time.sleep(0.75)
+    print(fill("tick"))
+    time.sleep(0.5)
+    print(fill("tick"))
+    time.sleep(0.5)
+    print(fill("tick"))
+    time.sleep(0.25)
+    print(fill("tick"))
+    time.sleep(0.25)
+    print("tick")
+    time.sleep(0.2)
+    print("tick")
+    time.sleep(0.2)
+    print("tick")
+    time.sleep(0.15)
+    print("tick")
+    time.sleep(0.15)
+    print("tick")
+    time.sleep(0.15)
+    print( "tick")
+    time.sleep(0.15)
+    print("tick")
+    time.sleep(0.15)
+    print("tick")
+    time.sleep(0.1)
+    print("tick")
+    time.sleep(0.1)
+    print("tick")
+    time.sleep(0.1)
+    print("tick")
+    time.sleep(0.1)
+    print( "tick")
+    time.sleep(0.1)
+    print("tick")
+    time.sleep(0.1)
+    print("tick")
+    time.sleep(3.0)
+    print("   ")
+    print("   ")
+    print("   ")
+    print(fill("Tonight. I’m going to smash it."))
+    time.sleep(5.0)
+    print("   ")
+    print(fill("I have a hammer from my toolbox my second cousin got me because of a generational joke. I’m going to use it, smash the damn thing so I can finally sleep. Finals are around the corner and I need to be able to study. I’m behind in all my classes and I need to keep a 3.0 for my scholarships. I can’t keep living like this, with all this noise."))
+    time.sleep(10.0)
+    print("   ")
+    print(fill("I think I’d rather die."))
+    print("   ")
+    time.sleep(5.0)
+    print(fill("The damn clock will, so help me god. I do not need this energy right now."))
+    time.sleep(3.0)
+    clock.stop()
+    hammertime()
+################################
+def hammertime():
+    playsound('expo.wav')
+    passing()
+#############################
+def passing():
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print("You weren't supposed to do that...")
+    time.sleep(2.0)
+    here = playsound('EstacyinDeath.wav', block=False)
+    time.sleep(20.0)
+    print(" ")
+    print("Your time is up")
+    time.sleep(10.0)
+    print(" ")
+    print("Just relax, they'll take care of you.")
+    time.sleep(96.0)
+    pergatory()
+#####################################
+def pergatory():
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    reception = playsound('reception.wav', block=False) 
+    print("I'm in a room.")
+    time.sleep(4.0)
+    print(" ")
+    print(fill("     Ok I know that's not a good descriptor, sue me. I still have the hammer, it's covered in oil and blood. Amazing, that is not coming out of the carpet here."))
+    time.sleep(10.0)
+    print(fill("     There is -what looks like a human being - sitting at a desk talking to another person. I can't make out the other human at all, their body is blurry and is giving me a headache to look at, but the person at the desk is crystal clear. "))
+    time.sleep(12.0)
+    print(fill("     I know from my sisters latest obsession that this is an Angel. The wings would have given it away either way."))
+    time.sleep(10.0)
+    print(" ")
+    print("     Did I die?")
+    time.sleep(4.0)
+    print("     Did that clock kill me?")
+    time.sleep(10.0)
+    print(" ")
+    print("I need to get out of here. Now.")
+    time.sleep(3.0)
+    print("     I weild the hammer like I did when I smashed the clock, and I can still feel the splattering of blood on my face when I shout.")
+    time.sleep(6.0)
+    print("     I think I look as manic as I feel, a humming in me that everything has gone spectacularlly wrong. Screaming makes me feel alive, makes me feel threatening.")
+    time.sleep(9.0)
+    print("     'Where is the exit?' I shout.")
+    time.sleep(6.0)
+    print("No response.")
+    time.sleep(7.0)
+    print("     I shout again, 'Someone tell me how to get out or I'll take this hammer to someones face.'")
+    time.sleep(9.0)
+    print("     Still nothing. No one moves, no one blinks or breathes. No one lookes at me, the crazy chick with a bloody hammer. Every single person here is blurry except for that Angel.")
+    time.sleep(12.0)
+    print("     I don't wnat to hurt anyone, but I'm keeping my word.")
+    time.sleep(5.0)
+    print(" ")
+    print("    I bash in the nearest table, watching it splinter under my hammer. The scream I tear out turns into sobbs, I have to get through to someone.")
+    time.sleep(8.0)
+    print("I have too")
+    time.sleep(9.0)
+    reception.stop()
+    eye = easygui.ynbox('Wait a moment. Can you not see im busy?', '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚' ,('Yes', 'No'))
+    if eye == False:
+        easygui.msgbox('Ha, ha, ha, you are clever.', '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+        easygui.msgbox('Not clever enought to use your eyes though, hmm?', '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+        print(fill("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+        time.sleep(60.0)
+        easygui.msgbox('Just Kidding! Ha, your face looked so ridiculous! Humans are so silly looking without eyes. Ha, Ha, Ha.', '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+        easygui.msgbox('Now if you want to keep them you will sit and wait till I am done.','✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚') 
+    elif eye == True:
+        easygui.msgbox('Great, now sit down and wait for me to finish before you smash anything else. ', '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    reception2 = playsound('reception.wav', block=False)
+    time.sleep(3.0)
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print("Where am I? Who- What are you?")
+    time.sleep(4.0)
+    easygui.msgbox('Rude. I just told you to wait. God above, mortals are so impatient', '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    print("Sorry I'm impatient. I have no idea where I am after I smashed a clock with a human heart in it!.")
+    time.sleep(3.0)
+    reception2.stop()
+    easygui.msgbox('What did you say?', '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    time.sleep(10.0)
+    print(" ")
+    print("Is that, bad?")
+    time.sleep(6.0)
+    easygui.msgbox('I am not sure.', '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    reception3 = playsound('reception.wav', block=False)
+    easygui.msgbox('A clock you say?' , '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    print(fill("     Yes! I know it sounds crazy but there was a grandfather clock in my dorm room closet. Do you even know how small my dorm even is? It can't fit a whole grandfather clock in it without defying the laws of, well, the universe!"))
+    time.sleep(10.0)
+    print(fill("    Please tell me you know where it came from?"))
+    time.sleep(7.0)
+    easygui.msgbox('I do not know. I have never heard of a grandfather clock just appearing.', '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    easygui.msgbox('They are normally stored somewhere you mortals can not see them.' , '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    print("Oh great...")
+    time.sleep(3.0)
+    easygui.msgbox('How about this, we play a game.', '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    easygui.msgbox('Since you were not supposed to see the clock, you should not be here, ', '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    easygui.msgbox('However, you destroyed it, meaning you cannot return to the mortal relm. You cut your own string.' , '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    print(" ")
+    print(" ")
+    print(" ")
+    print("There was no way I could have know that-")
+    time.sleep(4.0)
+    easygui.msgbox('If you would give me a moment? Please? Are you capable of that?', '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    print(" ")
+    print("I am when I'm not freaking out dude!")
+    time.sleep(5.0)
+    easygui.msgbox('Well let me finish then. God above.', '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    easygui.msgbox('I will analyze your life, then decide where you should go. Heaven, or Hell.' , '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    easygui.msgbox('I will send you to both, your job is to tell me which is which.', '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    easygui.msgbox('If you are right, I rebuild your clock and you get to keep living like normal' , '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    print("And if I'm wrong? What happens then?")
+    time.sleep(7.0)
+    easygui.msgbox('I keep you here for eternity under complications with death.' , '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    print(fill("What! No! No way! I'm not dead! I'm not- There was a mistake and I- oh my God. Oh my God dude. I'm gonna be stuck in deaths office for the rest of my life..."))
+    time.sleep(8.0)
+    print(fill("All I wanted was to finish college in one piece, can't even make it through freshman year before I somehow break reality."))
+    time.sleep(7.0)
+    easygui.msgbox('If it makes you feel better, I have never been to college.' , '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    print("Yeah because your a divine being dude. I'm just some guy.")
+    time.sleep(7.0)
+    easygui.msgbox('You can always say no and just stay where I put you, no life, no purgatory.', '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    print("No! No I'm taking the deal!")
+    time.sleep(4.0)
+    easygui.msgbox('Okay, no need to shout.' , '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    easygui.msgbox('Let me finish what I was doing, then we will play.' , '✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    print("Fine...")
+    easygui.msgbox('   ', 'Error')
+    shell = sys.stdout.shell
+    shell.write('  ',"stdout")
+    str = '........'
+    for letter in str:
+        sys.stdout.write(letter)
+        time.sleep(1.1)
+    reception3.stop()
+    judgement()
+##################################### 
+def judgement():
+    easygui.msgbox('There, your turn mortal. ','✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    judge = playsound('pergatory.wav', block=False)
+    print(" ")
+    print("Let us see what we have got...")
+    time.sleep(7.0)
+    shell = sys.stdout.shell
+    shell.write('Loading childhood.exe ',"stdout")
+    str = '........'
+    for letter in str:
+        sys.stdout.write(letter)
+        time.sleep(0.4)
+    time.sleep(4.0)
+    print("Data complete.")
+    time.sleep(3.0)
+    shell = sys.stdout.shell
+    shell.write('Loading adolecence.exe ',"stdout")
+    str = '........'
+    for letter in str:
+        sys.stdout.write(letter)
+        time.sleep(0.5)
+    time.sleep(4.0)
+    print("Data complete.")
+    time.sleep(3.0)
+    shell = sys.stdout.shell
+    shell.write('Loading adulthood.exe ',"stdout")
+    str = '........'
+    for letter in str:
+        sys.stdout.write(letter)
+        time.sleep(0.1)
+    time.sleep(4.0)
+    print("Data insufficient.")
+    time.sleep(3.0)
+    shell = sys.stdout.shell
+    shell.write('Loading personality.exe ',"stdout")
+    str = '........'
+    for letter in str:
+        sys.stdout.write(letter)
+        time.sleep(0.7)
+    time.sleep(4.0)
+    print("Data complete.")
+    time.sleep(3.0)
+    shell = sys.stdout.shell
+    shell.write('Loading trauma.exe ',"stdout")
+    str = '........'
+    for letter in str:
+        sys.stdout.write(letter)
+        time.sleep(0.5)
+    time.sleep(4.0)
+    print("Data complete.")
+    time.sleep(3.0)
+    shell = sys.stdout.shell
+    shell.write('Loading sins.exe ',"stdout")
+    str = '........'
+    for letter in str:
+        sys.stdout.write(letter)
+        time.sleep(0.6)
+    time.sleep(4.0)
+    print("Data complete.")
+    time.sleep(3.0)
+    shell = sys.stdout.shell
+    shell.write('Loading faith.exe ',"stdout")
+    str = '........'
+    for letter in str:
+        sys.stdout.write(letter)
+        time.sleep(0.1)
+    time.sleep(4.0)
+    print("Data not found.")
+    time.sleep(3.0)
+    shell = sys.stdout.shell
+    shell.write('Loading thoughts.exe ',"stdout")
+    str = '........'
+    for letter in str:
+        sys.stdout.write(letter)
+        time.sleep(0.7)
+    time.sleep(4.0)
+    print("Data complete.")
+    time.sleep(3.0)
+    shell = sys.stdout.shell
+    shell.write('Loading actions.exe ',"stdout")
+    str = '........'
+    for letter in str:
+        sys.stdout.write(letter)
+        time.sleep(0.4)
+    time.sleep(4.0)
+    print("Data complete.")
+    time.sleep(3.0)
+    shell = sys.stdout.shell
+    shell.write('Loading connections.exe ',"stdout")
+    str = '........'
+    for letter in str:
+        sys.stdout.write(letter)
+        time.sleep(0.4)
+    time.sleep(4.0)
+    print("Data complete.")
+    time.sleep(3.0)
+    print("Analysis complete. Assignment pending.") 
+    time.sleep(9.0)
+    print("Done. Assignemnt sent to Admin s̶̢̢͙͉̹͎̘̲̦̯̦̪̤̪̙̫͔͎͎͖͈͉̙̠͂͋̀̔͌͗̎͐̓͛͆̈͆̿̀̊̈́̄͗̍̐͗̕̕͘͜͠͠⧫̸̧̨̲̫̤̮͚̞͈̲̗̫͋͆͛̃̿͑̇̊̈́́͋̋̿͜͝︎̴̡̯͙̹̤̙̱̥̈̽̽̐́̓̾̓̎̅̎̀͗́̅́̇̾̋̆̌̑̍̎͘M̷̨̡̧̛̛̗̞͖̥̖̩̯͚͕̹̺̭͕̝̘̥͕͍̪̖͙̥̤̮͇̲̯̪̈́̌́̈̆̂̒͒͐̽̈́̄́̌́̄͒̄̓̐̈́͘͝͠͠ͅi̴̡̛̜͉͔͚͇͇̮̎̇̆̐̊͑̽̈̌̈́̋̆̃̐̀̎̀̈́̓̄͐͛̈́͐͊͛͘̚͝c̸̢̨͓̤̬̣̰͋h̵̢̨̘̥̭͕̫͖̤̰̙̺̬͉̫͖̻̩̖̦͔̱̹̝̓̉͊́̂́̃̽̈̾̉͊͜͜ͅą̴͍̳̖̳̞͔̦̼̰̦͔̻̪͚̠̟̹͔̫̜̹̅͊̏̍͆͑̃̿̓̾͛̓̓̀̔͑̈́̕͝ͅȩ̶̠̰̺̄͛͐̾̃̄̽̓̽͊̓̔̆̉͗̂̇̑͒͂͂͑̒ĺ̶̙͍̯̹͛̅͌̽͛͆͊̅̔͊̔̑̈́̍̅̋͑̌̑͊̇̀̑̀̈́̆͘͜͝●̵̡̨̧̛̛̟̼͈͈̬̝̖͍̳̳̞̻̖̞͉͎̭̫̹̜̲̯̫͙̺̟̳͎̤̤̘̅̍̅̈́̈́͑̂́̉̆̈́̈́́͊͆̃͑̚͘̚͝͠︎̸̛̛̫̙̅̂̅̈́̉̊͆͗̊͛̄͑̌̍̓̈̆̽̂͑͗͘̕͜͝͝")
+    spacing()
+
+def spacing():
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    fate = random.randint(1,2)
+    if fate == 1:
+        heaven()
+    elif fate == 2:
+        hell()
+###############################################
+def hell():
+    global damn
+    global save
+    global hell
+    damn += 10
+    if heaven == 0: 
+        hell += 10
+    oneh = playsound('wind.wav')
+    twoh = playsound('radio.wav')
+    threeh = playsound('fear.wav')
+    if save == 0:
+        heaven()
+    elif save == 10:
+        choice()
+        
+############################################
+############################################
+def heaven():
+    global damn
+    global save
+    global heaven
+    save += 10
+    if hell == 0:
+        heaven += 10
+    ### edit two and three#
+    oney = playsound('fire.wav')
+    twoy = playsound('suffering.wav')
+    threey = playsound('angel.wav')
+    if damn == 0:
+        hell()
+    elif damn == 10:
+        choice()
+        
+############################################
+def choice():
+    global heaven
+    global hell
+    global correct
+    easygui.msgbox('Hello there! It looks like you came back. Wonderful...','✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    print("No, not wonderful, not wonderful at all.")
+    time.sleep(3.0)
+    print("There was so much, blood and- and I saw - I saw the Universe form in a- oh my God...")
+    time.sleep(4.75)
+    easygui.msgbox('Yes yes, all very overwhelming for feeble minds like yours.','✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    print("I can't, It's - It's so - how did anything - ? Why do I even - ?")
+    time.sleep(3.5)
+    easygui.msgbox('Please focus. You still have to answer my question.','✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    print("Ok.. Ok I can do that...")
+    time.sleep(2.0)
+    print("Just need a- second or two? I'm- processing...")
+    time.sleep(7.0)
+    print(" ")
+    print("Ok, I think I'm good.")
+    time.sleep(4.0)
+    easygui.msgbox('Good, now for you to decide','✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    print(" ")
+    qone = str(input("Admin s̶̢̢͙͉̹͎̘̲̦̯̦̪̤̪̙̫͔͎͎͖͈͉̙̠͂͋̀̔͌͗̎͐̓͛͆̈͆̿̀̊̈́̄͗̍̐͗̕̕͘͜͠͠⧫̸̧̨̲̫̤̮͚̞͈̲̗̫͋͆͛̃̿͑̇̊̈́́͋̋̿͜͝︎̴̡̯͙̹̤̙̱̥̈̽̽̐́̓̾̓̎̅̎̀͗́̅́̇̾̋̆̌̑̍̎͘M̷̨̡̧̛̛̗̞͖̥̖̩̯͚͕̹̺̭͕̝̘̥͕͍̪̖͙̥̤̮͇̲̯̪̈́̌́̈̆̂̒͒͐̽̈́̄́̌́̄͒̄̓̐̈́͘͝͠͠ͅi̴̡̛̜͉͔͚͇͇̮̎̇̆̐̊͑̽̈̌̈́̋̆̃̐̀̎̀̈́̓̄͐͛̈́͐͊͛͘̚͝c̸̢̨͓̤̬̣̰͋h̵̢̨̘̥̭͕̫͖̤̰̙̺̬͉̫͖̻̩̖̦͔̱̹̝̓̉͊́̂́̃̽̈̾̉͊͜͜ͅą̴͍̳̖̳̞͔̦̼̰̦͔̻̪͚̠̟̹͔̫̜̹̅͊̏̍͆͑̃̿̓̾͛̓̓̀̔͑̈́̕͝ͅȩ̶̠̰̺̄͛͐̾̃̄̽̓̽͊̓̔̆̉͗̂̇̑͒͂͂͑̒ĺ̶̙͍̯̹͛̅͌̽͛͆͊̅̔͊̔̑̈́̍̅̋͑̌̑͊̇̀̑̀̈́̆͘͜͝●̵̡̨̧̛̛̟̼͈͈̬̝̖͍̳̳̞̻̖̞͉͎̭̫̹̜̲̯̫͙̺̟̳͎̤̤̘̅̍̅̈́̈́͑̂́̉̆̈́̈́́͊͆̃͑̚͘̚͝͠︎̸̛̛̫̙̅̂̅̈́̉̊͆͗̊͛̄͑̌̍̓̈̆̽̂͑͗͘̕͜͝͝ : Where did you go first? Heaven or Hell?     "))
+    if qone == 'Heaven' or 'heaven' or 'Haeven' or 'haeven':
+        if heaven == 10:
+            correct += 10
+            print(" ")
+    elif qone == 'Hell' or 'hell' or 'hll' or 'Hll':
+        if hell == 10:
+            correct += 10
+            print(" ")
+
+    qtwo = str(input("Admin s̶̢̢͙͉̹͎̘̲̦̯̦̪̤̪̙̫͔͎͎͖͈͉̙̠͂͋̀̔͌͗̎͐̓͛͆̈͆̿̀̊̈́̄͗̍̐͗̕̕͘͜͠͠⧫̸̧̨̲̫̤̮͚̞͈̲̗̫͋͆͛̃̿͑̇̊̈́́͋̋̿͜͝︎̴̡̯͙̹̤̙̱̥̈̽̽̐́̓̾̓̎̅̎̀͗́̅́̇̾̋̆̌̑̍̎͘M̷̨̡̧̛̛̗̞͖̥̖̩̯͚͕̹̺̭͕̝̘̥͕͍̪̖͙̥̤̮͇̲̯̪̈́̌́̈̆̂̒͒͐̽̈́̄́̌́̄͒̄̓̐̈́͘͝͠͠ͅi̴̡̛̜͉͔͚͇͇̮̎̇̆̐̊͑̽̈̌̈́̋̆̃̐̀̎̀̈́̓̄͐͛̈́͐͊͛͘̚͝c̸̢̨͓̤̬̣̰͋h̵̢̨̘̥̭͕̫͖̤̰̙̺̬͉̫͖̻̩̖̦͔̱̹̝̓̉͊́̂́̃̽̈̾̉͊͜͜ͅą̴͍̳̖̳̞͔̦̼̰̦͔̻̪͚̠̟̹͔̫̜̹̅͊̏̍͆͑̃̿̓̾͛̓̓̀̔͑̈́̕͝ͅȩ̶̠̰̺̄͛͐̾̃̄̽̓̽͊̓̔̆̉͗̂̇̑͒͂͂͑̒ĺ̶̙͍̯̹͛̅͌̽͛͆͊̅̔͊̔̑̈́̍̅̋͑̌̑͊̇̀̑̀̈́̆͘͜͝●̵̡̨̧̛̛̟̼͈͈̬̝̖͍̳̳̞̻̖̞͉͎̭̫̹̜̲̯̫͙̺̟̳͎̤̤̘̅̍̅̈́̈́͑̂́̉̆̈́̈́́͊͆̃͑̚͘̚͝͠︎̸̛̛̫̙̅̂̅̈́̉̊͆͗̊͛̄͑̌̍̓̈̆̽̂͑͗͘̕͜͝͝ : Where did you go second? Heaven or Hell?     "))
+    if qtwo == 'Heaven' or 'heaven' or 'Haeven' or 'haeven':
+        if heaven == 0: 
+            correct += 10
+            print(" ")
+    elif qtwo == 'Hell' or 'hell' or 'hll' or 'Hll':
+        if hell == 0:
+            correct += 10
+            print(" ")
+    if correct == 20:
+        enda()
+    else:
+        endb()   
+############################################
+def enda():
+    time.sleep(10.0)
+    print(" ")
+    print("That's my answer")
+    time.sleep(4.0)
+    easygui.msgbox('Ok, that is that then.','✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    easygui.msgbox('You guessed right. You get to leave this place.','✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    print("Oh my God...")
+    time.sleep(3.0)
+    print("Thank you. Thank you!")
+    easygui.msgbox('You will forget all of this and wake up. I will have to put in a rush order for a new clock but hey, you guessed right!','✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    print("I don't feel bad about that in the slightest. And honestly, I really want to forget this.")
+    time.sleep(5.0)
+    easygui.msgbox('Figured you would. Mortals are all the same, no appreciation for complexity.','✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    easygui.msgbox('Well, I guess I will send you back now... Goodbye.','✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    exit()
+##############################################
+def endb():
+    print(" ")
+    print("That's my answer")
+    time.sleep(4.0)
+    easygui.msgbox('Ok, that is that then.','✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    easygui.msgbox('I am so sorry mortal...','✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    print("Oh no.")
+    time.sleep(1.0)
+    print("No, don't tell me-")
+    time.sleep(1.5)
+    easygui.msgbox('You were...','✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    easygui.msgbox('If it makes you feel better, working here is not too bad.','✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    print("Oh yeah, that's not helping me at all.")
+    easygui.msgbox('Fair enough. I felt similar before I assended.','✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    reception = playsound('reception.wav', block=False)
+    easygui.msgbox('Come now, let us get you settled. Lots to do.','✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    easygui.msgbox('At least you are na angel now...','✍̴̧̳̱̲̹̟̬̪́͊̓̃̔̍͘︎̵̢̞̹̤̘̫̼̖͒̓̇͊̍̒̎̏̀☟̶̢̛̫̝͚̒̈́︎̴̘̹̳͈͕̺̯̒̌̒̈́̿̇̊̊e̵͍̋͋̈́̓̇̐̎̇͝å̵̡̘̬̭̺̾̈̽̒̈́͝❖̵̩͕̯̝̍̉̾̉́̎̉͘͝︎̸̢̰̦͇̼̔̂ę̸̡̫̬̰̭͕̠̙̎̀͋̄̒̒͆̏■̷̡̼̎̂̀͐͆̔͜︎̶̳̻̬̋́̈̌̍͂͠ͅa̸̠͇͊■̴̩͚̀́̈́̋͠͝︎̶̧̤̝̜͉̮̋͌̈́̓̅͑̊́͜͜͝d̷̫̟̖̤͈̯̈͐̓̾͗̇͜☟̸̢̛͖̩̠̦̔̅̐̐͗̆̆̚︎̵̬̞̬͕͉̰̫̱̙̐͒̚̕e̴̡͖̣̣̠͊●̴̢̛͉̩͖̾̓̋́͑̒̐͝︎̶̨̣̭̏́●̷͔̰̓͆̒́̄̄̿̈̍︎̶̨͕̠̱̦̞̲͍̗̎h̷̩̬̒͂͘a̷̫̪̯͖͕̅̑❖̶̡̨̺̣̪̞̬͈̔͐̕͠︎̵̧͇̣̜̜͋͂̊̍́͘̕ê̵̫̲̯̻̻͔̄͛̈́ͅ ̶͚͔͙͔̼͛͋̽̍́̈́̉■̴͔̖̟̿͊͘͠ͅ︎̸̜͈̰̊͆̈□̵̗̫̜̼̫̪̏̊︎̷̢̣͈̇͌̀̍͘̚ͅ ̵̣͍̲̩͓͕̣͒͐̽ͅ✞̵̡͓͈̮̫͑̓͑̒̋͜͝͠︎̴̨̙̱͖̈́͋̍̒a̵̤͔͈̯̰̭̱͂̂͘c̶̡̡̠̯̰̐̃̄̏̈̈͝a̶̢̢̩̖̱̗̞͖͓̽̆̀͋͠■̸̢̥̣͚̼͛̆̽̎͠︎̸̹̞͉̞̦̤̃͗̍̔̉̄̿̕̚͜ć̷̛͙̫͕̜̘̹̺̆̒͘⍓̶̡̨̥̫̟͕̩̈͗̒̈́︎̴͇̪̩͂͂̂͜✍̷̲͛̓̓̇̇︎̶̗̙̤̖̩̭̲̀̔̔́͋̈̚')
+    print("Yeah... I guess that's something people want to be...")
+    time.sleep(60.0)
+    exit()   
+main()
