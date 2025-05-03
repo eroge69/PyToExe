@@ -1,1 +1,0 @@
-print("Du Wurdest Gehäckt")
