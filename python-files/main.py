@@ -1,94 +1,171 @@
+import sys
 import os
-import zipfile
-import tarfile
-import threading
-import tkinter as tk
-from tkinter import filedialog, messagebox
+import json
+import subprocess
+import psutil
+import time
+import math
+from PyQt5.QtWidgets import (
+    QApplication, QLabel, QWidget, QVBoxLayout, QHBoxLayout,
+    QPushButton, QMenu, QAction, QStackedWidget, QCheckBox, QFrame
+)
+from PyQt5.QtCore import Qt, QTimer, QThread, pyqtSignal
+from PyQt5.QtGui import QFont, QPainter, QColor
+from ping3 import ping
+from pypresence import Presence
 
-FONT = ("Segoe UI", 12)
-BG_COLOR = "#f5f5dc"  # jasnopiaskowy
+# === Discord Rich Presence ===
+client_id = "1369255330776875039"
+rpc = Presence(client_id)
+rpc.connect()
+rpc.update(state="Launcher geöffnet", details="Bereit für FiveM", large_image="fivem", start=time.time())
 
-class UnpackerApp:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Rozpakowywacz backupów (.zip / .tar.gz)")
-        self.root.geometry("420x200")
-        self.root.configure(bg=BG_COLOR)
-        self.root.resizable(False, False)
+# === Funktionen ===
+def find_fivem_path():
+    possible_paths = [
+        os.path.expandvars(r"%localappdata%\FiveM\FiveM.exe"),
+        os.path.expandvars(r"%appdata%\CitizenFX\FiveM\FiveM.exe")
+    ]
+    for path in possible_paths:
+        if os.path.exists(path):
+            return path
+    return None
 
-        self.path_var = tk.StringVar()
-        self.create_widgets()
+# === Overlay Fenster ===
+class OverlayWindow(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Tool)
+        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setFixedSize(200, 120)
+        self.move(50, 50)
 
-    def create_widgets(self):
-        tk.Label(self.root, text="Ścieżka do folderu z backupami:", font=FONT, bg=BG_COLOR).pack(pady=10)
+        self.cpu = 0
+        self.ram = 0
+        self.ping_val = 0
+        self.fps = 0
 
-        self.path_entry = tk.Entry(self.root, textvariable=self.path_var, width=35, font=FONT)
-        self.path_entry.pack(pady=(0, 20))
+        self.frame_count = 0
+        self.last_time = time.time()
 
-        btn_frame = tk.Frame(self.root, bg=BG_COLOR)
-        btn_frame.pack()
+        # Timer zum Aktualisieren der Systemdaten
+        self.data_timer = QTimer()
+        self.data_timer.timeout.connect(self.update_data)
+        self.data_timer.start(1000)
 
-        browse_btn = tk.Button(btn_frame, text="Wybierz folder...", command=self.browse_folder, font=FONT, width=15)
-        browse_btn.pack(side=tk.LEFT, padx=(0, 40))  
+        # Timer zum Neuzeichnen (für FPS)
+        self.repaint_timer = QTimer()
+        self.repaint_timer.timeout.connect(self.update_fps)
+        self.repaint_timer.start(16)  # ~60 FPS
 
-        self.ok_button = tk.Button(btn_frame, text="OK", command=self.on_ok, font=FONT, width=10)
-        self.ok_button.pack(side=tk.LEFT)
+    def update_data(self):
+        self.cpu = psutil.cpu_percent()
+        self.ram = psutil.virtual_memory().percent
+        self.ping_val = int(ping("google.com", unit='ms') or 0)
 
-        self.status_label = tk.Label(self.root, text="", font=FONT, bg=BG_COLOR)
-        self.status_label.pack(pady=20)
+    def update_fps(self):
+        self.frame_count += 1
+        current_time = time.time()
+        elapsed = current_time - self.last_time
+        if elapsed >= 1.0:
+            self.fps = self.frame_count
+            self.frame_count = 0
+            self.last_time = current_time
+        self.update()
 
-        self.loading_label = tk.Label(self.root, text="", font=FONT, bg=BG_COLOR)
-        self.loading_label.pack(pady=10)
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setPen(Qt.NoPen)
+        painter.setBrush(QColor(0, 0, 0, 160))
+        painter.drawRoundedRect(self.rect(), 10, 10)
 
-    def browse_folder(self):
-        folder = filedialog.askdirectory()
-        if folder:
-            self.path_var.set(folder)
+        painter.setPen(QColor(255, 255, 255))
+        painter.setFont(QFont("Consolas", 10))
+        painter.drawText(10, 40, f"CPU: {self.cpu}%")
+        painter.drawText(10, 60, f"RAM: {self.ram}%")
+        painter.drawText(10, 80, f"Ping: {self.ping_val}ms")
+        painter.drawText(10, 20, f"FPS: {self.fps}")
 
-    def on_ok(self):
-        path = self.path_var.get().strip().replace('"', '')
-        if not os.path.isdir(path):
-            messagebox.showerror("Błąd", "Podana ścieżka jest nieprawidłowa.")
-            return
 
-        self.ok_button.config(state=tk.DISABLED)
-        self.status_label.config(text="Rozpoczynam rozpakowywanie...")
-        self.loading_label.config(text="⏳ Proszę czekać, trwa rozpakowywanie...")
+# === Hauptlauncher ===
+class Launcher(QWidget):
+    def __init__(self):
+        super().__init__()
 
-        threading.Thread(target=self.unpack_files, args=(path,), daemon=True).start()
+        self.overlay_window = None
 
-    def unpack_files(self, folder_path):
-        unpacked_count = 0
+        self.setWindowTitle("FiveM Launcher")
+        self.setFixedSize(500, 500)
+        self.setStyleSheet("background-color: #222; color: white;")
 
-        for file_name in os.listdir(folder_path):
-            file_path = os.path.join(folder_path, file_name)
-            if not os.path.isfile(file_path):
-                continue
+        self.main_layout = QHBoxLayout(self)
 
-            try:
-                if file_name.lower().endswith(".zip"):
-                    with zipfile.ZipFile(file_path, 'r') as archive:
-                        archive.extractall(folder_path)
-                    os.remove(file_path)
-                    unpacked_count += 1
+        # Seitenleiste
+        sidebar = QVBoxLayout()
+        self.news_btn = QPushButton("📰 News")
+        self.settings_btn = QPushButton("⚙️ Einstellungen")
+        for btn in [self.news_btn, self.settings_btn]:
+            btn.setStyleSheet("background: #333; color: white; padding: 10px;")
+            sidebar.addWidget(btn)
+        sidebar.addStretch()
+        self.main_layout.addLayout(sidebar)
 
-                elif file_name.lower().endswith((".tar.gz", ".tar")):
-                    with tarfile.open(file_path, 'r:*') as archive:
-                        archive.extractall(folder_path)
-                    os.remove(file_path)
-                    unpacked_count += 1
+        # Inhalt
+        self.pages = QStackedWidget()
+        self.page_news = QLabel("📰 Willkommen im Newsbereich")
+        self.page_news.setAlignment(Qt.AlignCenter)
+        self.page_settings = QWidget()
+        settings_layout = QVBoxLayout(self.page_settings)
 
-            except Exception as e:
-                print(f"Nie udało się rozpakować {file_name}: {e}")
+        self.overlay_checkbox = QCheckBox("Overlay (FPS, CPU, RAM) anzeigen")
+        self.overlay_checkbox.setChecked(True)
+        settings_layout.addWidget(self.overlay_checkbox)
 
-        self.loading_label.config(text="")
-        self.status_label.config(text=f"✅ Rozpakowano {unpacked_count} plików.")
-        self.ok_button.config(state=tk.NORMAL)
+        settings_layout.addStretch()
+        self.pages.addWidget(self.page_news)
+        self.pages.addWidget(self.page_settings)
+
+        self.main_layout.addWidget(self.pages)
+
+        self.status_label = QLabel("Bereit zum Spielen")
+        self.status_label.setAlignment(Qt.AlignCenter)
+        self.status_label.setStyleSheet("padding: 10px; font-size: 16px;")
+
+        self.play_button = QPushButton("🎮 Spielen")
+        self.play_button.setStyleSheet("background-color: #4CAF50; color: white; padding: 15px;")
+        self.play_button.clicked.connect(self.start_game)
+
+        right_layout = QVBoxLayout()
+        right_layout.addWidget(self.status_label)
+        right_layout.addWidget(self.play_button)
+        right_layout.addStretch()
+        self.main_layout.addLayout(right_layout)
+
+        # Verbindungen
+        self.news_btn.clicked.connect(lambda: self.pages.setCurrentIndex(0))
+        self.settings_btn.clicked.connect(lambda: self.pages.setCurrentIndex(1))
+
+    def start_game(self):
+        if self.overlay_checkbox.isChecked():
+            if not self.overlay_window:
+                self.overlay_window = OverlayWindow()
+            self.overlay_window.show()
+
+        fivem_path = find_fivem_path()
+        if fivem_path:
+            subprocess.Popen(f'"{fivem_path}"')
+            self.status_label.setText("Spiel wird gestartet...")
+        else:
+            self.status_label.setText("❌ FiveM nicht gefunden!")
+
 
 def main():
-    root = tk.Tk()
-    app = UnpackerApp(root)
-    root.mainloop()
+    app = QApplication(sys.argv)
+    launcher = Launcher()
+    launcher.show()
+    sys.exit(app.exec_())
+
 
 if __name__ == "__main__":
     main()
