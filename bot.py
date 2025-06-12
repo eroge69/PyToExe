@@ -7,6 +7,8 @@ import psutil
 import webbrowser
 from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 from ctypes import cast, POINTER
+import comtypes
+from comtypes import CLSCTX_ALL
 
 TOKEN = '8039669622:AAHjN4DHB7bWlwsBKbbMsvDOyxrbNPOk4QA'
 ALLOWED_ID = 8194220203
